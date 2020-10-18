@@ -9,3 +9,4 @@ services:
 
     Susanne\Hcaptcha\Service\ConfigurationService:
         public: true
+

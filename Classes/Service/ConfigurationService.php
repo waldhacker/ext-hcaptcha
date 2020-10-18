@@ -10,24 +10,13 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 class ConfigurationService
 {
     /**
-     * @var ConfigurationService
-     */
-    private static $_instance;
-
-    /**
      * @var array
      */
     private $settings;
-    /**
-     * @var ConfigurationManager
-     */
-    private $configurationManager;
-
     public function __construct(ConfigurationManager $configurationManager)
     {
-        $this->configurationManager = $configurationManager;
         if ($this->settings === null) {
-            $this->settings = $this->configurationManager->getConfiguration(
+            $this->settings = $configurationManager->getConfiguration(
                 ConfigurationManager::CONFIGURATION_TYPE_SETTINGS,
                 'hcaptcha'
             );
