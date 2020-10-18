@@ -1,0 +1,54 @@
+TYPO3:
+  CMS:
+    Form:
+      prototypes:
+        standard:
+          formEditor:
+            translationFiles:
+              10: 'EXT:form/Resources/Private/Language/Database.xlf'
+              158329071148: 'EXT:hcaptcha/Resources/Private/Language/locallang_hcaptcha.xlf'
+            dynamicRequireJsModules:
+              additionalViewModelModules:
+                  158329071148: 'TYPO3/CMS/Hcaptcha/Backend/FormEditor/HcaptchaViewModel'
+            formEditorPartials:
+              FormElement-Hcaptcha: 'Stage/SimpleTemplate'
+          formElementsDefinition:
+            Form:
+              renderingOptions:
+                partialRootPaths:
+                    158329071148: 'EXT:hcaptcha/Resources/Private/Partials/Forms/Frontend/FormElements/'
+            Hcaptcha:
+              __inheritances:
+                10: 'TYPO3.CMS.Form.mixins.formElementMixins.FormElementMixin'
+              implementationClassName: 'TYPO3\CMS\Form\Domain\Model\FormElements\GenericFormElement'
+              properties:
+                containerClassAttribute: 'hcaptcha'
+              formEditor:
+                label: 'formEditor.elements.Hcaptcha.label'
+                group: custom
+                groupSorting: 700
+                iconIdentifier: 'hcaptcha'
+                predefinedDefaults:
+                  validators:
+                    -
+                      identifier: 'Hcaptcha'
+                  renderingOptions:
+                    submitButtonLabel: 'true'
+                editors:
+                  800: null
+                  900:
+                    identifier: 'validators'
+                    templateName: 'Inspector-ValidatorsEditor'
+                    label: 'formEditor.elements.FormElement.editor.hcaptchaValidator.label'
+                    selectOptions:
+                      10:
+                        value: 'Hcaptcha'
+                        label: 'formEditor.elements.TextMixin.validators.Hcaptcha.editor.header.label'
+
+
+          validatorsDefinition:
+            Hcaptcha:
+              implementationClassName: 'Susanne\Hcaptcha\Validation\HcaptchaValidator'
+              formEditor:
+                iconIdentifier: 't3-form-icon-validator'
+                label: 'formEditor.elements.TextMixin.validators.Hcaptcha.editor.header.label'

@@ -1,0 +1,32 @@
+{
+  "name": "susanne/hcaptcha",
+  "type": "typo3-cms-extension",
+  "description": "Add hCaptcha to EXT:form - The privacy friendly Google hcaptcha alternative",
+  "license": ["GPL-2.0-or-later"],
+  "homepage": "https://susi.dev",
+  "authors": [
+    {
+      "name": "Susanne Moog",
+      "email": "look+typo3@susi.dev",
+      "homepage": "https://susi.dev",
+      "role": "Developer"
+    }
+  ],
+  "version": "1.0.0",
+  "require": {
+    "typo3/cms-core": "^10.4 | ^11.0.x-dev",
+    "typo3/cms-form": "^10.4 | ^11.0.x-dev"
+  },
+  "suggest": {
+    "vlucas/phpdotenv": "^2.4"
+  },
+  "require-dev": {
+    "roave/security-advisories": "dev-master"
+  },
+  "autoload": {
+    "psr-4": {
+      "Susanne\\Hcaptcha\\": "Classes/",
+      "Susanne\\Hcaptcha\\Tests\\": "Tests/"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file source-language="en" datatype="plaintext" original="messages" date="2020-10-19T13:37:00Z">
+        <header/>
+        <body>
+            <trans-unit id="formEditor.elements.Hcaptcha.label">
+                <source>hCaptcha</source>
+            </trans-unit>
+            <trans-unit id="formEditor.elements.FormElement.editor.hcaptchaValidator.label">
+                <source>hCaptcha validation is active</source>
+            </trans-unit>
+            <trans-unit id="formEditor.elements.TextMixin.validators.Hcaptcha.editor.header.label">
+                <source>hCaptcha validation</source>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

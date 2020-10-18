@@ -1,0 +1,11 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Susanne\Hcaptcha\:
+        resource: '../Classes/*'
+
+    Susanne\Hcaptcha\Service\ConfigurationService:
+        public: true

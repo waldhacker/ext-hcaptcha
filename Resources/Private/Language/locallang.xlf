@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file source-language="en" datatype="plaintext" original="messages" date="2019-08-19T13:37:00Z">
+        <body>
+            <trans-unit id="error_hcaptcha_timeout-or-duplicate">
+                <source>Duplicate submission of form. Please check the captcha again.</source>
+            </trans-unit>
+            <trans-unit id="error_hcaptcha_invalid-input-secret">
+                <source>Invalid input secret</source>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
