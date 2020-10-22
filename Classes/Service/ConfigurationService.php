@@ -1,11 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Susanne\Hcaptcha\Service;
 
 use Susanne\Hcaptcha\Exception\MissingKeyException;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
-
 
 class ConfigurationService
 {
@@ -22,7 +22,6 @@ class ConfigurationService
             );
         }
     }
-
 
     /**
      * @return string

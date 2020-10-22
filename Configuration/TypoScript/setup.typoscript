@@ -1,24 +1,24 @@
 plugin.tx_hcaptcha {
-    settings {
-        apiScript = {$plugin.tx_hcaptcha.settings.apiScript}
-        verificationServer = {$plugin.tx_hcaptcha.settings.verificationServer}
-        publicKey = {$plugin.tx_hcaptcha.settings.publicKey}
-        privateKey = {$plugin.tx_hcaptcha.settings.privateKey}
-    }
-}
+  settings {
+    apiScript = {$plugin.tx_hcaptcha.settings.apiScript}
+    verificationServer = {$plugin.tx_hcaptcha.settings.verificationServer}
+    publicKey = {$plugin.tx_hcaptcha.settings.publicKey}
+    privateKey = {$plugin.tx_hcaptcha.settings.privateKey}
+  }
 
-plugin.tx_form {
+  tx_form {
     settings {
-        yamlConfigurations {
-            158329071148 = EXT:hcaptcha/Configuration/Form/Yaml/BaseSetup.yaml
-        }
+      yamlConfigurations {
+        158329071148 = EXT:hcaptcha/Configuration/Form/Yaml/BaseSetup.yaml
+      }
     }
+  }
 }
 
 module.tx_form {
-    settings {
-        yamlConfigurations {
-            158329071148 = EXT:hcaptcha/Configuration/Form/Yaml/BaseSetup.yaml
-        }
+  settings {
+    yamlConfigurations {
+      158329071148 = EXT:hcaptcha/Configuration/Form/Yaml/BaseSetup.yaml
     }
+  }
 }

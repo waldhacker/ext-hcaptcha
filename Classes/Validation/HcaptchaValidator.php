@@ -1,17 +1,21 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Susanne\Hcaptcha\Validation;
 
 use Susanne\Hcaptcha\Service\ConfigurationService;
-use TYPO3\CMS\Core\Http\Request;
 use TYPO3\CMS\Core\Http\RequestFactory;
+use TYPO3\CMS\Core\Http\ServerRequest;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\HttpUtility;
 use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
 
 class HcaptchaValidator extends AbstractValidator
 {
+    /**
+     * @var ConfigurationService
+     */
     private $configurationService;
 
     public function injectConfigurationService(ConfigurationService $configurationService): void
@@ -34,7 +38,7 @@ class HcaptchaValidator extends AbstractValidator
                     $this->translateErrorMessage(
                         'error_hcaptcha_' . $errorCode,
                         'hcaptcha'
-                    ),
+                    ) ?? '',
                     1566209403
                 );
             }
@@ -46,20 +50,22 @@ class HcaptchaValidator extends AbstractValidator
      */
     public function validateHcaptcha(): array
     {
-        /** @var Request $request */
+        /** @var ServerRequest $request */
         $request = $GLOBALS['TYPO3_REQUEST'];
-        $hcaptchaFormFieldValue = $request->getParsedBody()['h-captcha-response'] ?? null;
+        /** @var array $parsedBody */
+        $parsedBody = $request->getParsedBody();
+        $hcaptchaFormFieldValue = $parsedBody['h-captcha-response'] ?? null;
 
         $url = HttpUtility::buildUrl(
             [
-                'host'  => $this->configurationService->getVerificationServer(),
+                'host' => $this->configurationService->getVerificationServer(),
                 'query' => \http_build_query(
                     [
-                        'secret'   => $this->configurationService->getPrivateKey(),
+                        'secret' => $this->configurationService->getPrivateKey(),
                         'response' => $hcaptchaFormFieldValue,
-                        'remoteip' => $request->getAttribute('normalizedParams')->getRemoteAddress()
+                        'remoteip' => $request->getAttribute('normalizedParams')->getRemoteAddress(),
                     ]
-                )
+                ),
             ]
         );
 

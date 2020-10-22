@@ -1,0 +1,5 @@
+.build/
+composer.lock
+.phplint-cache
+.php_cs.cache
+.phplint.cache

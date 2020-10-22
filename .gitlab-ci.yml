@@ -1,0 +1,48 @@
+stages:
+  - build_ci
+  - ci
+
+build-dev:
+  stage: build_ci
+  image: composer:2
+  script:
+    - echo "Build started for PHP Version $PHP with TYPO3 $TYPO3"
+    - composer install
+  parallel:
+    matrix:
+      - PHP: [ "7.4", "7.3", "7.2" ]
+        TYPO3: [ "10.4", dev-master ]
+
+  artifacts:
+    name: TYPO3-$TYPO3-$PHP
+    paths:
+      - .build/
+      - ./composer.lock
+    expire_in: '1h'
+
+cgl:
+  stage: ci
+  dependencies:
+    - build-dev
+  image: composer:2
+  script:
+    - composer run ci:cgl:check
+
+lint:
+  stage: ci
+  dependencies:
+    - build-dev
+  image: composer:2
+  script:
+    - composer run ci:lint:php
+    - composer run ci:lint:yaml
+    - composer run ci:lint:typoscript
+
+stan:
+  stage: ci
+  dependencies:
+    - build-dev
+  image: composer:2
+  script:
+    - composer run ci:stan
+

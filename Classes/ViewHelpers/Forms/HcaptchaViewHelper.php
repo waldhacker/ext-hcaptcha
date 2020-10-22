@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Susanne\Hcaptcha\ViewHelpers\Forms;
@@ -13,6 +14,9 @@ class HcaptchaViewHelper extends AbstractFormFieldViewHelper
 {
     use CompileWithRenderStatic;
 
+    /**
+     * @var ConfigurationService
+     */
     private $configurationService;
 
     public function __construct(ConfigurationService $configurationService)

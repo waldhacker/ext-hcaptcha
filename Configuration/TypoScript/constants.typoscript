@@ -1,11 +1,8 @@
 plugin.tx_hcaptcha {
-	settings {
-		apiScript = https://hcaptcha.com/1/api.js
-
-		verificationServer = https://hcaptcha.com/siteverify
-
-		publicKey = b3ac2551-431d-45f0-a5e9-c397d4054d9b
-
-		privateKey = 0x82f20B839DEC165594aF2Dd7C9344DBb0d08340f
-	}
+  settings {
+    apiScript = https://hcaptcha.com/1/api.js
+    verificationServer = https://hcaptcha.com/siteverify
+    publicKey = b3ac2551-431d-45f0-a5e9-c397d4054d9b
+    privateKey = 0x82f20B839DEC165594aF2Dd7C9344DBb0d08340f
+  }
 }

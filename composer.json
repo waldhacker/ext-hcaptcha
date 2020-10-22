@@ -1,32 +1,79 @@
 {
-  "name": "susanne/hcaptcha",
-  "type": "typo3-cms-extension",
-  "description": "Add hCaptcha to EXT:form - The privacy friendly Google hcaptcha alternative",
-  "license": ["GPL-2.0-or-later"],
-  "homepage": "https://susi.dev",
-  "authors": [
-    {
-      "name": "Susanne Moog",
-      "email": "look+typo3@susi.dev",
-      "homepage": "https://susi.dev",
-      "role": "Developer"
+    "name": "susanne/hcaptcha",
+    "type": "typo3-cms-extension",
+    "description": "Add hCaptcha to EXT:form - The privacy friendly Google hcaptcha alternative",
+    "license": ["GPL-2.0-or-later"],
+    "homepage": "https://susi.dev",
+    "authors": [
+        {
+            "name": "Susanne Moog",
+            "email": "look+typo3@susi.dev",
+            "homepage": "https://susi.dev",
+            "role": "Developer"
+        }
+    ],
+    "version": "1.0.0",
+    "prefer-stable": true,
+    "minimum-stability": "dev",
+    "require": {
+        "typo3/cms-core": "dev-master",
+        "typo3/cms-form": "^10.4 | ^11.0@dev | dev-master",
+        "typo3/cms-fluid": "^10.4 | ^11.0@dev | dev-master"
+    },
+    "suggest": {
+        "vlucas/phpdotenv": "^2.4"
+    },
+    "require-dev": {
+        "roave/security-advisories": "dev-master",
+        "overtrue/phplint": "^2.0",
+        "phpstan/phpstan": "^0.12.50",
+        "phpstan/extension-installer": "^1.0",
+        "friendsofphp/php-cs-fixer": "^2.16",
+        "typo3/coding-standards": "^0.2.0",
+        "symfony/console": "^5.1",
+        "symfony/yaml": "^5.1",
+        "helmich/typo3-typoscript-lint": "^2.3",
+        "saschaegerer/phpstan-typo3": "@dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "Susanne\\Hcaptcha\\": "Classes/",
+            "Susanne\\Hcaptcha\\Tests\\": "Tests/"
+        }
+    },
+    "config": {
+        "vendor-dir": ".build/vendor",
+        "bin-dir": ".build/bin"
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "mkdir -p .build/web/typo3conf/ext/", "[ -L .build/web/typo3conf/ext/hcaptcha ] || ln -snvf ../../../../. .build/web/typo3conf/ext/hcaptcha"
+        ],
+        "ci:lint:php": [
+            "phplint -c build/phplint.yaml"
+        ],
+        "ci:lint:yaml": [
+            "php build/yaml-lint.php Configuration/"
+        ],
+        "ci:lint:typoscript": [
+            "typoscript-lint -c build/tslint.yaml"
+        ],
+        "ci:stan": [
+            "phpstan analyze --configuration build/phpstan.neon"
+        ],
+        "ci:cgl:check": [
+            "php-cs-fixer fix --config build/phpcs.dist -v --dry-run"
+        ],
+        "ci:cgl:fix": [
+            "php-cs-fixer fix --config build/phpcs.dist"
+        ]
+    },
+    "extra": {
+        "typo3/cms": {
+            "extension-key": "hcaptcha",
+            "cms-package-dir": "{$vendor-dir}/typo3/cms",
+            "web-dir": ".build/web"
+        }
     }
-  ],
-  "version": "1.0.0",
-  "require": {
-    "typo3/cms-core": "^10.4 | ^11.0.x-dev",
-    "typo3/cms-form": "^10.4 | ^11.0.x-dev"
-  },
-  "suggest": {
-    "vlucas/phpdotenv": "^2.4"
-  },
-  "require-dev": {
-    "roave/security-advisories": "dev-master"
-  },
-  "autoload": {
-    "psr-4": {
-      "Susanne\\Hcaptcha\\": "Classes/",
-      "Susanne\\Hcaptcha\\Tests\\": "Tests/"
-    }
-  }
+
 }
