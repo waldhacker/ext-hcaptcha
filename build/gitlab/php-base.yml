@@ -1,0 +1,33 @@
+stages:
+  - build_ci
+  - ci
+
+variables:
+  COMPOSER_COMMAND: "composer update --with=typo3/cms-core:dev-master"
+
+build-dev:
+  stage: build_ci
+  script:
+    - composer self-update --preview
+    - $COMPOSER_COMMAND
+  artifacts:
+    name: TYPO3
+    paths:
+      - .build/
+      - ./composer.lock
+    expire_in: '1h'
+
+lintphp:
+  stage: ci
+  dependencies:
+    - build-dev
+  script:
+    - composer run ci:lint:php
+
+stan:
+  stage: ci
+  dependencies:
+    - build-dev
+  script:
+    - composer run ci:stan
+
