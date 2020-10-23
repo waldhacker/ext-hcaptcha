@@ -2,19 +2,18 @@ stages:
   - build_ci
   - ci
 
+variables:
+  IMAGE: "composer:2"
+
 build-dev:
   stage: build_ci
-  image: composer:2
+  image: $IMAGE
   script:
     - echo "Build started for PHP Version $PHP with TYPO3 $TYPO3"
     - composer install
-  parallel:
-    matrix:
-      - PHP: [ "7.4", "7.3", "7.2" ]
-        TYPO3: [ "10.4", dev-master ]
 
   artifacts:
-    name: TYPO3-$TYPO3-$PHP
+    name: TYPO3
     paths:
       - .build/
       - ./composer.lock
