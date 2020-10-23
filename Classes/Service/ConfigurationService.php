@@ -10,9 +10,10 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 class ConfigurationService
 {
     /**
-     * @var array
+     * @var array|null
      */
-    private $settings;
+    private $settings = null;
+
     public function __construct(ConfigurationManager $configurationManager)
     {
         if ($this->settings === null) {

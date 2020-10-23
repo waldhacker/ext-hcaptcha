@@ -31,3 +31,10 @@ stan:
   script:
     - composer run ci:stan
 
+psalm:
+  stage: ci
+  dependencies:
+    - build-dev
+  script:
+    - composer run ci:psalm
+

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Susanne\Hcaptcha\Validation;
 
+use Psr\Http\Message\ServerRequestInterface;
 use Susanne\Hcaptcha\Service\ConfigurationService;
 use TYPO3\CMS\Core\Http\RequestFactory;
-use TYPO3\CMS\Core\Http\ServerRequest;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\HttpUtility;
 use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
@@ -50,7 +50,7 @@ class HcaptchaValidator extends AbstractValidator
      */
     public function validateHcaptcha(): array
     {
-        /** @var ServerRequest $request */
+        /** @var ServerRequestInterface $request */
         $request = $GLOBALS['TYPO3_REQUEST'];
         /** @var array $parsedBody */
         $parsedBody = $request->getParsedBody();
