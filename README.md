@@ -1,5 +1,8 @@
 # hCaptcha for TYPO3 EXT:form
 
+[![codecov](https://codecov.io/gl/susannemoog/hcaptcha/branch/main/graph/badge.svg?token=QPAS36XVEM)](main)
+[![pipeline](https://gitlab.com/susannemoog/hcaptcha/badges/main/pipeline.svg)](main)
+
 Provides [hCaptcha](https://hcaptcha.com) integration for TYPO3 EXT:form.
 
 hCaptcha is a free to use alternative to Google reCaptcha with a bigger focus on privacy. It supports initiatives like [PrivacyPass](https://www.hcaptcha.com/privacy-pass).
