@@ -7,6 +7,7 @@ variables:
 
 build-dev:
   stage: build_ci
+  needs: []
   script:
     - composer self-update
     - $COMPOSER_COMMAND
@@ -19,21 +20,21 @@ build-dev:
 
 lintphp:
   stage: ci
-  dependencies:
+  needs:
     - build-dev
   script:
     - composer run ci:lint:php
 
 stan:
   stage: ci
-  dependencies:
+  needs:
     - build-dev
   script:
     - composer run ci:stan
 
 tests:
   stage: ci
-  dependencies:
+  needs:
     - build-dev
   script:
     - composer run ci:tests:unit

@@ -1,7 +1,9 @@
 # hCaptcha for TYPO3 EXT:form
 
-[![codecov](https://codecov.io/gl/susannemoog/hcaptcha/branch/main/graph/badge.svg?token=QPAS36XVEM)](main)
-[![pipeline](https://gitlab.com/susannemoog/hcaptcha/badges/main/pipeline.svg)](main)
+[![codecov](https://codecov.io/gl/susannemoog/hcaptcha/branch/main/graph/badge.svg?token=QPAS36XVEM)]()
+[![pipeline](https://gitlab.com/susannemoog/hcaptcha/badges/main/pipeline.svg)]()
+[![license](https://img.shields.io/badge/license-GPL%20v3-brightgreen)](https://choosealicense.com/licenses/gpl-3.0/)
+![phpstan](https://img.shields.io/badge/PHPStan-lvl%20max-blueviolet)
 
 Provides [hCaptcha](https://hcaptcha.com) integration for TYPO3 EXT:form.
 

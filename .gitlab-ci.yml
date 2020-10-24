@@ -10,6 +10,7 @@ image: $IMAGE
 
 build-dev:
   stage: build_ci
+  needs: []
   script:
     - composer self-update --preview
     - $COMPOSER_COMMAND
@@ -22,38 +23,43 @@ build-dev:
 
 master-73:
   stage: ci
+  needs: [ ]
   trigger:
     include: build/gitlab/master-73.yml
     strategy: depend
 
 master-74:
   stage: ci
+  needs: [ ]
   trigger:
     include: build/gitlab/master-74.yml
     strategy: depend
 
 t310-74:
   stage: ci
+  needs: [ ]
   trigger:
     include: build/gitlab/t310-74.yml
     strategy: depend
 
 lint:
   stage: ci
+  needs:
+    - build-dev
   script:
     - composer run ci:lint:yaml
     - composer run ci:lint:typoscript
 
 psalm:
   stage: ci
-  dependencies:
+  needs:
     - build-dev
   script:
     - composer run ci:psalm
 
 coverage:
   stage: ci
-  dependencies:
+  needs:
     - build-dev
   script:
     - composer run ci:tests:unit:cover
