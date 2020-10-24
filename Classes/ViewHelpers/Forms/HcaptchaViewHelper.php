@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace Susanne\Hcaptcha\ViewHelpers\Forms;
 
 use Susanne\Hcaptcha\Service\ConfigurationService;
-use TYPO3\CMS\Core\Page\PageRenderer;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Page\AssetCollector;
 use TYPO3\CMS\Fluid\ViewHelpers\Form\AbstractFormFieldViewHelper;
 use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
+/**
+ * @codeCoverageIgnore maybe test with an acceptance test at a later point
+ */
 class HcaptchaViewHelper extends AbstractFormFieldViewHelper
 {
     use CompileWithRenderStatic;
@@ -19,10 +21,16 @@ class HcaptchaViewHelper extends AbstractFormFieldViewHelper
      */
     private $configurationService;
 
-    public function __construct(ConfigurationService $configurationService)
+    /**
+     * @var AssetCollector
+     */
+    private $assetCollector;
+
+    public function __construct(ConfigurationService $configurationService, AssetCollector $assetCollector)
     {
         parent::__construct();
         $this->configurationService = $configurationService;
+        $this->assetCollector = $assetCollector;
     }
 
     /**
@@ -30,20 +38,11 @@ class HcaptchaViewHelper extends AbstractFormFieldViewHelper
      */
     public function render(): string
     {
-        GeneralUtility::makeInstance(PageRenderer::class)->addJsFooterLibrary(
-            'hcaptchaapi',
+        $this->assetCollector->addJavaScript(
+            'hcaptcha',
             $this->configurationService->getApiScript(),
-            'text/javascript',
-            false,
-            false,
-            '',
-            true,
-            '|',
-            true,
-            '',
-            true
+            ['async' => '', 'defer' => '']
         );
-
         return '<div class="h-captcha" data-sitekey="' . $this->configurationService->getPublicKey() . '"></div>';
     }
 }

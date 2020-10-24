@@ -2,7 +2,9 @@
       xmlns:formvh="http://typo3.org/ns/TYPO3/CMS/Form/ViewHelpers"
       xmlns:hcaptcha="http://typo3.org/ns/Susanne/Hcaptcha/ViewHelpers"
       data-namespace-typo3-fluid="true">
+
 <formvh:renderRenderable renderable="{element}">
+    <span class="hcaptcha-description">{element.properties.elementDescription}</span>
     <hcaptcha:forms.hcaptcha />
     <f:form.hidden
             property="{element.identifier}"

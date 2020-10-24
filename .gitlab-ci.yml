@@ -1,11 +1,24 @@
 stages:
+  - build_ci
   - ci
 
-master-72:
-  stage: ci
-  trigger:
-    include: build/gitlab/master-72.yml
-    strategy: depend
+variables:
+  COMPOSER_COMMAND: "composer update --with=typo3/cms-core:dev-master"
+  IMAGE: "composer:2"
+
+image: $IMAGE
+
+build-dev:
+  stage: build_ci
+  script:
+    - composer self-update --preview
+    - $COMPOSER_COMMAND
+  artifacts:
+    name: TYPO3
+    paths:
+      - .build/
+      - ./composer.lock
+    expire_in: '1h'
 
 master-73:
   stage: ci
@@ -25,15 +38,27 @@ t310-74:
     include: build/gitlab/t310-74.yml
     strategy: depend
 
-variables:
-  IMAGE: "composer:2"
-
 lint:
   stage: ci
-  image: $IMAGE
   script:
-    - composer install
     - composer run ci:lint:yaml
     - composer run ci:lint:typoscript
 
+psalm:
+  stage: ci
+  dependencies:
+    - build-dev
+  script:
+    - composer run ci:psalm
 
+coverage:
+  stage: ci
+  dependencies:
+    - build-dev
+  script:
+    - composer run ci:tests:unit:cover
+  artifacts:
+    reports:
+      cobertura: .build/logs/cobertura.xml
+  after_script:
+    - bash <(curl -s https://codecov.io/bash) -t $CODECOV_TOKEN -f .build/logs/clover.xml

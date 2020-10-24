@@ -1,4 +1,0 @@
-include:
-  - local: build/gitlab/php-base.yml
-
-image: ghcr.io/typo3gmbh/php72:3.0

@@ -7,7 +7,6 @@ namespace Susanne\Hcaptcha\Validation;
 use Psr\Http\Message\ServerRequestInterface;
 use Susanne\Hcaptcha\Service\ConfigurationService;
 use TYPO3\CMS\Core\Http\RequestFactory;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\HttpUtility;
 use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
 
@@ -18,9 +17,19 @@ class HcaptchaValidator extends AbstractValidator
      */
     private $configurationService;
 
+    /**
+     * @var RequestFactory
+     */
+    private $requestFactory;
+
     public function injectConfigurationService(ConfigurationService $configurationService): void
     {
         $this->configurationService = $configurationService;
+    }
+
+    public function injectRequestFactory(RequestFactory $requestFactory): void
+    {
+        $this->requestFactory = $requestFactory;
     }
 
     /**
@@ -28,7 +37,7 @@ class HcaptchaValidator extends AbstractValidator
      *
      * @param mixed $value The value
      */
-    public function isValid($value): void
+    protected function isValid($value): void
     {
         $response = $this->validateHcaptcha();
 
@@ -38,7 +47,7 @@ class HcaptchaValidator extends AbstractValidator
                     $this->translateErrorMessage(
                         'error_hcaptcha_' . $errorCode,
                         'hcaptcha'
-                    ) ?? '',
+                    ) ?? 'An error occurred when validating the captcha.',
                     1566209403
                 );
             }
@@ -48,13 +57,16 @@ class HcaptchaValidator extends AbstractValidator
     /**
      * @return array
      */
-    public function validateHcaptcha(): array
+    private function validateHcaptcha(): array
     {
         /** @var ServerRequestInterface $request */
         $request = $GLOBALS['TYPO3_REQUEST'];
         /** @var array $parsedBody */
         $parsedBody = $request->getParsedBody();
         $hcaptchaFormFieldValue = $parsedBody['h-captcha-response'] ?? null;
+        if (null === $hcaptchaFormFieldValue) {
+            return ['success' => false, 'error-codes' => ['invalid-post-form']];
+        }
 
         $url = HttpUtility::buildUrl(
             [
@@ -69,8 +81,7 @@ class HcaptchaValidator extends AbstractValidator
             ]
         );
 
-        $requestService = GeneralUtility::makeInstance(RequestFactory::class);
-        $response = $requestService->request($url, 'POST');
+        $response = $this->requestFactory->request($url, 'POST');
 
         $body = (string)$response->getBody();
         return \GuzzleHttp\json_decode($body, true);

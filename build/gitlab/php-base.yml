@@ -8,7 +8,7 @@ variables:
 build-dev:
   stage: build_ci
   script:
-    - composer self-update --preview
+    - composer self-update
     - $COMPOSER_COMMAND
   artifacts:
     name: TYPO3
@@ -31,10 +31,12 @@ stan:
   script:
     - composer run ci:stan
 
-psalm:
+tests:
   stage: ci
   dependencies:
     - build-dev
   script:
-    - composer run ci:psalm
-
+    - composer run ci:tests:unit
+  artifacts:
+    reports:
+      junit: .build/logs/junit.xml

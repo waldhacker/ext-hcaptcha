@@ -8,6 +8,9 @@
             <trans-unit id="error_hcaptcha_invalid-input-secret">
                 <source>Invalid input secret</source>
             </trans-unit>
+            <trans-unit id="error_hcaptcha_invalid-post-form">
+                <source>Missing validation value in POST request.</source>
+            </trans-unit>
         </body>
     </file>
 </xliff>

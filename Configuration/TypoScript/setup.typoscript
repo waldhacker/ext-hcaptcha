@@ -1,9 +1,11 @@
-plugin.tx_hcaptcha {
-  settings {
-    apiScript = {$plugin.tx_hcaptcha.settings.apiScript}
-    verificationServer = {$plugin.tx_hcaptcha.settings.verificationServer}
-    publicKey = {$plugin.tx_hcaptcha.settings.publicKey}
-    privateKey = {$plugin.tx_hcaptcha.settings.privateKey}
+plugin {
+  tx_hcaptcha {
+    settings {
+      apiScript = {$plugin.tx_hcaptcha.settings.apiScript}
+      verificationServer = {$plugin.tx_hcaptcha.settings.verificationServer}
+      publicKey = {$plugin.tx_hcaptcha.settings.publicKey}
+      privateKey = {$plugin.tx_hcaptcha.settings.privateKey}
+    }
   }
 
   tx_form {
