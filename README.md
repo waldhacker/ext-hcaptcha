@@ -19,6 +19,10 @@ the Wikimedia foundation automatically (which is the case for the default settin
 hCaptcha is configured with a default key to make the setup as easy as possible.
 It is recommended to create a custom account for your site with hCaptcha and add your own keys.
 
+- Install the extension and activate it
+- Include the static template in TypoScript
+- Add a `hCaptcha` element to a form
+
 ### TypoScript Constants
 
 Set the following constants if you are using your own account:

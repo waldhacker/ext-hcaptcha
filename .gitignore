@@ -4,3 +4,4 @@ composer.lock
 .php_cs.cache
 .phplint.cache
 .phpunit.cache
+Documentation-GENERATED-temp
