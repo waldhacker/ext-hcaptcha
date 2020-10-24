@@ -4,6 +4,9 @@
     "description": "Add hCaptcha to EXT:form - The privacy friendly Google hcaptcha alternative",
     "license": ["GPL-2.0-or-later"],
     "homepage": "https://susi.dev",
+    "support": {
+        "issues": "https://gitlab.com/susannemoog/hcaptcha/-/issues"
+    },
     "authors": [
         {
             "name": "Susanne Moog",
