@@ -36,6 +36,7 @@ hCaptcha - privacy friendly, GDPR-compliant captcha for TYPO3
    Installation/Index
    Configuration/Index
    Editor/Index
+   Changelog
    Sitemap
 
 **Community Documentation**
