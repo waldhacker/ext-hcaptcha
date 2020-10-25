@@ -1,7 +1,7 @@
 # hCaptcha for TYPO3 EXT:form
 
 [![codecov](https://codecov.io/gl/susannemoog/hcaptcha/branch/main/graph/badge.svg?token=QPAS36XVEM)](https://codecov.io/gl/susannemoog/hcaptcha/)
-[![pipeline](https://gitlab.com/susannemoog/hcaptcha/badges/main/pipeline.svg)]()
+[![pipeline](https://gitlab.com/sunny-sunshine/hcaptcha/badges/main/pipeline.svg)]()
 [![license](https://img.shields.io/badge/license-GPL%20v3-brightgreen)](https://choosealicense.com/licenses/gpl-3.0/)
 [![phpstan](https://img.shields.io/badge/PHPStan-lvl%20max-blueviolet)](https://phpstan.org/)
 
@@ -61,4 +61,4 @@ For more info see: https://docs.hcaptcha.com/faq
 * Issues: https://gitlab.com/susannemoog/hcaptcha/-/issues
 * Slack: #typo3-cms
 
-Follow me on [Twitter](twitter.com/sasunegomo) or read [my blog at susi.dev](https://susi.dev).
+Follow me on [Twitter](twitter.com/sasunegomo) or read [my blog entry about hCaptcha at susi.dev](https://susi.dev/hcaptcha).
