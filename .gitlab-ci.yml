@@ -10,6 +10,8 @@ image: $IMAGE
 
 build-dev:
   stage: build_ci
+  tags:
+    - common
   needs: []
   script:
     - composer self-update --preview
@@ -44,6 +46,8 @@ t310-74:
 
 lint:
   stage: ci
+  tags:
+    - common
   needs:
     - build-dev
   script:
@@ -52,6 +56,8 @@ lint:
 
 psalm:
   stage: ci
+  tags:
+    - common
   needs:
     - build-dev
   script:
@@ -59,6 +65,8 @@ psalm:
 
 coverage:
   stage: ci
+  tags:
+    - common
   needs:
     - build-dev
   script:

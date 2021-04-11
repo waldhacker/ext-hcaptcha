@@ -1,6 +1,6 @@
 include:
   - local: build/gitlab/php-base.yml
 
-image: ghcr.io/typo3gmbh/php74:3.0
+image: $CI_REGISTRY/waldhacker/mainframe/docker/base/php/7.4:cli
 variables:
   COMPOSER_COMMAND: "composer update --with=typo3/cms-core:^10.4"

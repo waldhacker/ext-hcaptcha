@@ -7,7 +7,10 @@ variables:
 
 build-dev:
   stage: build_ci
+  image: $CI_REGISTRY/waldhacker/mainframe/docker/base/php/7.4:cli
   needs: []
+  tags:
+    - common
   script:
     - composer self-update
     - $COMPOSER_COMMAND
@@ -20,6 +23,9 @@ build-dev:
 
 lintphp:
   stage: ci
+  image: $CI_REGISTRY/waldhacker/mainframe/docker/base/php/7.4:cli
+  tags:
+    - common
   needs:
     - build-dev
   script:
@@ -27,6 +33,9 @@ lintphp:
 
 stan:
   stage: ci
+  image: $CI_REGISTRY/waldhacker/mainframe/docker/base/php/7.4:cli
+  tags:
+    - common
   needs:
     - build-dev
   script:
@@ -34,6 +43,9 @@ stan:
 
 tests:
   stage: ci
+  image: $CI_REGISTRY/waldhacker/mainframe/docker/base/php/7.4:cli
+  tags:
+    - common
   needs:
     - build-dev
   script:
