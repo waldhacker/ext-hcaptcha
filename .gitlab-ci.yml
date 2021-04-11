@@ -74,5 +74,24 @@ coverage:
   artifacts:
     reports:
       cobertura: .build/logs/cobertura.xml
-  after_script:
-    - bash <(curl -s https://codecov.io/bash) -t $CODECOV_TOKEN -f .build/logs/clover.xml
+
+
+publish_tags:
+  stage: publish
+  tags:
+    - common
+  image: $CI_REGISTRY/waldhacker/mainframe/gitlab/runner/images/docker:stable
+  rules:
+    - if: '$CI_COMMIT_TAG =~ /^v\d+.\d+.\d+/'
+  script:
+    - 'curl --header "Job-Token: $CI_JOB_TOKEN" --data tag=$CI_COMMIT_TAG "https://$CI_SERVER_HOST/api/v4/projects/$CI_PROJECT_ID/packages/composer"'
+
+publish_branch:
+  stage: publish
+  tags:
+    - common
+  image: $CI_REGISTRY/waldhacker/mainframe/gitlab/runner/images/docker:stable
+  rules:
+    - if: '$CI_COMMIT_TAG == null'
+  script:
+    - 'curl --header "Job-Token: $CI_JOB_TOKEN" --data branch=$CI_COMMIT_BRANCH "https://$CI_SERVER_HOST/api/v4/projects/$CI_PROJECT_ID/packages/composer"'
