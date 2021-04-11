@@ -80,7 +80,7 @@
         ],
         "ci:tests:unit:cover": [
             "mkdir -p .build/logs",
-            "phpdbg -d memory_limit=1024M -qrr ./.build/bin/phpunit -c build/phpunit.xml --coverage-clover .build/logs/clover.xml --coverage-cobertura .build/logs/cobertura.xml"
+            "phpdbg -d memory_limit=1024M -qrr ./.build/bin/phpunit -c build/phpunit.xml --coverage-text --coverage-clover .build/logs/clover.xml --coverage-cobertura .build/logs/cobertura.xml"
         ],
         "ci:tests:unit": [
             "phpunit -c build/phpunit.xml --log-junit .build/logs/junit.xml"
