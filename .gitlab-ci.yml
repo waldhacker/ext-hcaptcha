@@ -4,7 +4,7 @@ stages:
 
 variables:
   COMPOSER_COMMAND: "composer update --with=typo3/cms-core:dev-master"
-  IMAGE: "composer:2"
+  IMAGE: "$CI_REGISTRY/waldhacker/mainframe/docker/base/php/7.4:cli"
 
 image: $IMAGE
 
