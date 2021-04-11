@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Susanne\Hcaptcha\Exception;
+namespace Waldhacker\Hcaptcha\Exception;
 
 use TYPO3\CMS\Core\Exception;
 

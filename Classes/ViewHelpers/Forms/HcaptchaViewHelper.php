@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Susanne\Hcaptcha\ViewHelpers\Forms;
+namespace Waldhacker\Hcaptcha\ViewHelpers\Forms;
 
-use Susanne\Hcaptcha\Service\ConfigurationService;
 use TYPO3\CMS\Core\Page\AssetCollector;
 use TYPO3\CMS\Fluid\ViewHelpers\Form\AbstractFormFieldViewHelper;
 use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
+use Waldhacker\Hcaptcha\Service\ConfigurationService;
 
 /**
  * @codeCoverageIgnore maybe test with an acceptance test at a later point

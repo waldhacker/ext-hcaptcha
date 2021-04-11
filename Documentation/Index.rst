@@ -13,10 +13,10 @@ hCaptcha - privacy friendly, GDPR-compliant captcha for TYPO3
    en
 
 :Authors:
-   Susanne Moog
+   Waldhacker | Ralf Zimmermann | Susanne Moog |
 
 :Website:
-   https://susi.dev
+   https://waldhacker.dev
 
 :License:
    This extension documentation is published under the
@@ -46,4 +46,4 @@ This documentation is community documentation for the TYPO3 extension {extension
 It is maintained as part of this third party extension.
 
 If you find an error or something is missing, please:
-`Report a Problem <https://gitlab.com/susannemoog/hcaptcha/-/issues>`__
+`Report a Problem <https://github.com/waldhacker/ext-hcaptcha/issues>`__

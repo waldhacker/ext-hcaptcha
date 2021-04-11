@@ -5,3 +5,4 @@ composer.lock
 .phplint.cache
 .phpunit.cache
 Documentation-GENERATED-temp
+.idea

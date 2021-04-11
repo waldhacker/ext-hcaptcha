@@ -48,7 +48,7 @@ TYPO3:
 
           validatorsDefinition:
             Hcaptcha:
-              implementationClassName: 'Susanne\Hcaptcha\Validation\HcaptchaValidator'
+              implementationClassName: 'Waldhacker\Hcaptcha\Validation\HcaptchaValidator'
               formEditor:
                 iconIdentifier: 't3-form-icon-validator'
                 label: 'formEditor.elements.TextMixin.validators.Hcaptcha.editor.header.label'

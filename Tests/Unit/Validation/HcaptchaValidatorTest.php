@@ -1,23 +1,23 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
-namespace Susanne\Hcaptcha\Tests\Unit\Validation;
+namespace Waldhacker\Hcaptcha\Tests\Unit\Validation;
 
 use GuzzleHttp\Psr7\Response;
+use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Http\Message\ServerRequestInterface;
-use Susanne\Hcaptcha\Service\ConfigurationService;
-use Susanne\Hcaptcha\Validation\HcaptchaValidator;
-use PHPUnit\Framework\TestCase;
 use TYPO3\CMS\Core\Http\NormalizedParams;
 use TYPO3\CMS\Core\Http\RequestFactory;
+use Waldhacker\Hcaptcha\Service\ConfigurationService;
+use Waldhacker\Hcaptcha\Validation\HcaptchaValidator;
 
 /**
  * @backupGlobals enabled
- * @coversDefaultClass \Susanne\Hcaptcha\Validation\HcaptchaValidator
+ * @coversDefaultClass \Waldhacker\Hcaptcha\Validation\HcaptchaValidator
  */
 class HcaptchaValidatorTest extends TestCase
 {

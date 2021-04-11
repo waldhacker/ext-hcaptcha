@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Susanne\Hcaptcha\Validation;
+namespace Waldhacker\Hcaptcha\Validation;
 
 use Psr\Http\Message\ServerRequestInterface;
-use Susanne\Hcaptcha\Service\ConfigurationService;
 use TYPO3\CMS\Core\Http\RequestFactory;
 use TYPO3\CMS\Core\Utility\HttpUtility;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
+use Waldhacker\Hcaptcha\Service\ConfigurationService;
 
 class HcaptchaValidator extends AbstractValidator
 {
@@ -47,7 +48,7 @@ class HcaptchaValidator extends AbstractValidator
                     $this->translateErrorMessage(
                         'error_hcaptcha_' . $errorCode,
                         'hcaptcha'
-                    ) ?? 'An error occurred when validating the captcha.',
+                    ),
                     1566209403
                 );
             }
@@ -84,6 +85,16 @@ class HcaptchaValidator extends AbstractValidator
         $response = $this->requestFactory->request($url, 'POST');
 
         $body = (string)$response->getBody();
-        return \GuzzleHttp\json_decode($body, true);
+        $responseArray = json_decode($body, true);
+        return is_array($responseArray) ? $responseArray : [];
+    }
+
+    protected function translateErrorMessage($translateKey, $extensionName, $arguments = []): string
+    {
+        return LocalizationUtility::translate(
+                $translateKey,
+                $extensionName,
+                $arguments
+            ) ?? 'Validating the captcha failed.';
     }
 }

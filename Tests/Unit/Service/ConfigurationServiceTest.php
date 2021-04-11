@@ -1,19 +1,19 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
-namespace Susanne\Hcaptcha\Tests\Unit;
+namespace Waldhacker\Hcaptcha\Tests\Unit;
 
+use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
-use Susanne\Hcaptcha\Exception\MissingKeyException;
-use Susanne\Hcaptcha\Service\ConfigurationService;
-use PHPUnit\Framework\TestCase;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
+use Waldhacker\Hcaptcha\Exception\MissingKeyException;
+use Waldhacker\Hcaptcha\Service\ConfigurationService;
 
 /**
- * @coversDefaultClass \Susanne\Hcaptcha\Service\ConfigurationService
+ * @coversDefaultClass \Waldhacker\Hcaptcha\Service\ConfigurationService
  */
 class ConfigurationServiceTest extends TestCase
 {
@@ -122,7 +122,6 @@ class ConfigurationServiceTest extends TestCase
 
         self::assertSame($expectedKey, $privateKey);
     }
-
 
     /**
      * @test

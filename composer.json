@@ -1,11 +1,11 @@
 {
-    "name": "susanne/hcaptcha",
+    "name": "waldhacker/hcaptcha",
     "type": "typo3-cms-extension",
     "description": "TYPO3 Extension to Add hCaptcha to EXT:form - The privacy friendly captcha alternative.",
     "license": ["GPL-2.0-or-later"],
-    "homepage": "https://susi.dev/hcaptcha",
+    "homepage": "https://waldhacker.dev/extensions/hcaptcha",
     "support": {
-        "issues": "https://gitlab.com/sunny-sunshine/hcaptcha/-/issues"
+        "issues": "https://github.com/waldhacker/ext-hcaptcha/issues"
     },
     "authors": [
         {
@@ -22,13 +22,14 @@
         "php": "^7.2",
         "typo3/cms-core": "^10.4 | ^11.0@dev | dev-master",
         "typo3/cms-form": "^10.4 | ^11.0@dev | dev-master",
-        "typo3/cms-fluid": "^10.4 | ^11.0@dev | dev-master"
+        "typo3/cms-fluid": "^10.4 | ^11.0@dev | dev-master",
+        "ext-json": "*"
     },
     "suggest": {
         "vlucas/phpdotenv": "^2.4"
     },
     "require-dev": {
-        "roave/security-advisories": "dev-master",
+        "roave/security-advisories": "dev-latest",
         "overtrue/phplint": "^2.0",
         "phpstan/phpstan": "^0.12.50",
         "phpstan/extension-installer": "^1.0",
@@ -44,8 +45,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Susanne\\Hcaptcha\\": "Classes/",
-            "Susanne\\Hcaptcha\\Tests\\": "Tests/"
+            "Waldhacker\\Hcaptcha\\": "Classes/",
+            "Waldhacker\\Hcaptcha\\Tests\\": "Tests/"
         }
     },
     "config": {

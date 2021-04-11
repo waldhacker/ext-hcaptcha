@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Susanne\Hcaptcha\Service;
+namespace Waldhacker\Hcaptcha\Service;
 
-use Susanne\Hcaptcha\Exception\MissingKeyException;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
+use Waldhacker\Hcaptcha\Exception\MissingKeyException;
 
 class ConfigurationService
 {
     /**
      * @var array|null
      */
-    private $settings = null;
+    private $settings;
 
     public function __construct(ConfigurationManager $configurationManager)
     {
