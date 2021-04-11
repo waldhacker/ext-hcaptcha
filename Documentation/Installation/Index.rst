@@ -10,6 +10,6 @@ Installation
 
 .. code::
 
-   composer require susanne/hcaptcha
+   composer require waldhacker/hcaptcha
 
 - Activate the extension in the TYPO3 Extension Manager
