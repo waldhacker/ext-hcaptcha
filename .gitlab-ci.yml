@@ -1,6 +1,7 @@
 stages:
   - build_ci
   - ci
+  - publish
 
 variables:
   COMPOSER_COMMAND: "composer update --with=typo3/cms-core:dev-master"
