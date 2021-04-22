@@ -6,11 +6,13 @@
 <formvh:renderRenderable renderable="{element}">
     <span class="hcaptcha-description">{element.properties.elementDescription}</span>
     <hcaptcha:forms.hcaptcha />
-    <f:form.hidden
-            property="{element.identifier}"
-            id="{element.uniqueIdentifier}"
-            value="1"
-            additionalAttributes="{formvh:translateElementProperty(element: element, property: 'fluidAdditionalAttributes')}"
-    />
+    <f:render partial="Field/Field" arguments="{element: element, doNotShowLabel: 1}" contentAs="elementContent">
+        <f:form.hidden
+                property="{element.identifier}"
+                id="{element.uniqueIdentifier}"
+                value="1"
+                additionalAttributes="{formvh:translateElementProperty(element: element, property: 'fluidAdditionalAttributes')}"
+        />
+    </f:render>
 </formvh:renderRenderable>
 </html>
