@@ -5,16 +5,18 @@ declare(strict_types=1);
 namespace Waldhacker\Hcaptcha\ViewHelpers\Forms;
 
 use TYPO3\CMS\Core\Page\AssetCollector;
-use TYPO3\CMS\Fluid\ViewHelpers\Form\AbstractFormFieldViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 use Waldhacker\Hcaptcha\Service\ConfigurationService;
 
 /**
  * @codeCoverageIgnore maybe test with an acceptance test at a later point
  */
-class HcaptchaViewHelper extends AbstractFormFieldViewHelper
+class HcaptchaViewHelper extends AbstractViewHelper
 {
     use CompileWithRenderStatic;
+
+    protected $escapeOutput = false;
 
     /**
      * @var ConfigurationService
@@ -28,7 +30,6 @@ class HcaptchaViewHelper extends AbstractFormFieldViewHelper
 
     public function __construct(ConfigurationService $configurationService, AssetCollector $assetCollector)
     {
-        parent::__construct();
         $this->configurationService = $configurationService;
         $this->assetCollector = $assetCollector;
     }
