@@ -23,6 +23,12 @@ TYPO3:
                 containerClassAttribute: 'hcaptcha'
                 elementClassAttribute: ''
                 elementErrorClassAttribute: error
+              variants:
+                -
+                  identifier: hide-1
+                  renderingOptions:
+                    enabled: false
+                  condition: 'stepType == "SummaryPage" || finisherIdentifier in ["EmailToSender", "EmailToReceiver"]'
               formEditor:
                 label: 'hcaptcha.formEditor.element.label'
                 group: custom
