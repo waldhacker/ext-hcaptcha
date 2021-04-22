@@ -11,6 +11,9 @@
             <trans-unit id="error_hcaptcha_invalid-post-form">
                 <source>Missing validation value in POST request.</source>
             </trans-unit>
+            <trans-unit id="error_hcaptcha_missing-input-response">
+                <source>Missing input.</source>
+            </trans-unit>
         </body>
     </file>
 </xliff>

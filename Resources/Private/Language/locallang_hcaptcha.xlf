@@ -3,14 +3,17 @@
     <file source-language="en" datatype="plaintext" original="messages" date="2020-10-19T13:37:00Z">
         <header/>
         <body>
-            <trans-unit id="formEditor.elements.Hcaptcha.label">
+            <trans-unit id="hcaptcha.formEditor.element.label">
                 <source>hCaptcha</source>
             </trans-unit>
-            <trans-unit id="formEditor.elements.FormElement.editor.hcaptchaValidator.label">
+            <trans-unit id="hcaptcha.formEditor.stage.validation_label">
                 <source>hCaptcha validation is active</source>
             </trans-unit>
-            <trans-unit id="formEditor.elements.TextMixin.validators.Hcaptcha.editor.header.label">
-                <source>hCaptcha validation</source>
+            <trans-unit id="hcaptcha.formEditor.inspector.validator.select.option_label">
+                <source>hCaptcha</source>
+            </trans-unit>
+            <trans-unit id="hcaptcha.formEditor.inspector.validator.header_label">
+                <source>hCaptcha</source>
             </trans-unit>
         </body>
     </file>

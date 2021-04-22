@@ -9,22 +9,28 @@ TYPO3:
               158329071148: 'EXT:hcaptcha/Resources/Private/Language/locallang_hcaptcha.xlf'
             dynamicRequireJsModules:
               additionalViewModelModules:
-                  158329071148: 'TYPO3/CMS/Hcaptcha/Backend/FormEditor/HcaptchaViewModel'
+                158329071148: 'TYPO3/CMS/Hcaptcha/Backend/FormEditor/HcaptchaViewModel'
             formEditorPartials:
               FormElement-Hcaptcha: 'Stage/SimpleTemplate'
           formElementsDefinition:
             Form:
               renderingOptions:
                 partialRootPaths:
-                    158329071148: 'EXT:hcaptcha/Resources/Private/Partials/Forms/Frontend/FormElements/'
+                  158329071148: 'EXT:hcaptcha/Resources/Private/Partials/Forms/Frontend/FormElements/'
             Hcaptcha:
-              __inheritances:
-                10: 'TYPO3.CMS.Form.mixins.formElementMixins.FormElementMixin'
               implementationClassName: 'TYPO3\CMS\Form\Domain\Model\FormElements\GenericFormElement'
               properties:
                 containerClassAttribute: 'hcaptcha'
+                elementClassAttribute: ''
+                elementErrorClassAttribute: error
+              variants:
+                -
+                  identifier: hide-1
+                  renderingOptions:
+                    enabled: false
+                  condition: 'stepType == "SummaryPage" || finisherIdentifier in ["EmailToSender", "EmailToReceiver"]'
               formEditor:
-                label: 'formEditor.elements.Hcaptcha.label'
+                label: 'hcaptcha.formEditor.element.label'
                 group: custom
                 groupSorting: 700
                 iconIdentifier: 'hcaptcha'
@@ -32,23 +38,66 @@ TYPO3:
                   validators:
                     -
                       identifier: 'Hcaptcha'
-                  renderingOptions:
-                    submitButtonLabel: 'true'
+                propertyCollections:
+                  validators:
+                    10:
+                      identifier: 'Hcaptcha'
+                      editors:
+                        100:
+                          identifier: 'header'
+                          templateName: 'Inspector-CollectionElementHeaderEditor'
+                          label: 'hcaptcha.formEditor.inspector.validator.header_label'
                 editors:
-                  800: null
+                  100:
+                    identifier: 'header'
+                    templateName: 'Inspector-FormElementHeaderEditor'
+                  200:
+                    identifier: 'label'
+                    templateName: 'Inspector-TextEditor'
+                    label: 'formEditor.elements.FormElement.editor.label.label'
+                    propertyPath: 'label'
+                  230:
+                    identifier: 'elementDescription'
+                    templateName: 'Inspector-TextEditor'
+                    label: 'formEditor.elements.FormElement.editor.elementDescription.label'
+                    propertyPath: 'properties.elementDescription'
+                  700:
+                    identifier: 'gridColumnViewPortConfiguration'
+                    templateName: 'Inspector-GridColumnViewPortConfigurationEditor'
+                    label: 'formEditor.elements.FormElement.editor.gridColumnViewPortConfiguration.label'
+                    configurationOptions:
+                      viewPorts:
+                        10:
+                          viewPortIdentifier: 'xs'
+                          label: 'formEditor.elements.FormElement.editor.gridColumnViewPortConfiguration.xs.label'
+                        20:
+                          viewPortIdentifier: 'sm'
+                          label: 'formEditor.elements.FormElement.editor.gridColumnViewPortConfiguration.sm.label'
+                        30:
+                          viewPortIdentifier: 'md'
+                          label: 'formEditor.elements.FormElement.editor.gridColumnViewPortConfiguration.md.label'
+                        40:
+                          viewPortIdentifier: 'lg'
+                          label: 'formEditor.elements.FormElement.editor.gridColumnViewPortConfiguration.lg.label'
+                      numbersOfColumnsToUse:
+                        label: 'formEditor.elements.FormElement.editor.gridColumnViewPortConfiguration.numbersOfColumnsToUse.label'
+                        propertyPath: 'properties.gridColumnClassAutoConfiguration.viewPorts.{@viewPortIdentifier}.numbersOfColumnsToUse'
+                        fieldExplanationText: 'formEditor.elements.FormElement.editor.gridColumnViewPortConfiguration.numbersOfColumnsToUse.fieldExplanationText'
                   900:
                     identifier: 'validators'
                     templateName: 'Inspector-ValidatorsEditor'
-                    label: 'formEditor.elements.FormElement.editor.hcaptchaValidator.label'
+                    label: 'formEditor.elements.TextMixin.editor.validators.label'
                     selectOptions:
                       10:
                         value: 'Hcaptcha'
-                        label: 'formEditor.elements.TextMixin.validators.Hcaptcha.editor.header.label'
-
+                        label: 'hcaptcha.formEditor.inspector.validator.select.option_label'
+                  9999:
+                    identifier: 'removeButton'
+                    templateName: 'Inspector-RemoveElementEditor'
 
           validatorsDefinition:
             Hcaptcha:
               implementationClassName: 'Waldhacker\Hcaptcha\Validation\HcaptchaValidator'
               formEditor:
-                iconIdentifier: 't3-form-icon-validator'
-                label: 'formEditor.elements.TextMixin.validators.Hcaptcha.editor.header.label'
+                iconIdentifier: 'form-validator'
+                label: 'hcaptcha.formEditor.stage.validation_label'
