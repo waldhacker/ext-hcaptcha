@@ -92,7 +92,9 @@ class HcaptchaValidator extends AbstractValidator
     private function getConfigurationService(): ConfigurationService
     {
         if (!($this->configurationService instanceof ConfigurationService)) {
-            $this->configurationService = GeneralUtility::makeInstance(ConfigurationService::class);
+            /** @var ConfigurationService $configurationService */
+            $configurationService = GeneralUtility::makeInstance(ConfigurationService::class);
+            $this->configurationService = $configurationService;
         }
         return $this->configurationService;
     }
@@ -100,7 +102,9 @@ class HcaptchaValidator extends AbstractValidator
     private function getRequestFactory(): RequestFactory
     {
         if (!($this->requestFactory instanceof RequestFactory)) {
-            $this->requestFactory = GeneralUtility::makeInstance(RequestFactory::class);
+            /** @var RequestFactory $requestFactory */
+            $requestFactory = GeneralUtility::makeInstance(RequestFactory::class);
+            $this->requestFactory = $requestFactory;
         }
         return $this->requestFactory;
     }
