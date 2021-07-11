@@ -65,8 +65,8 @@ class HcaptchaValidatorTest extends TestCase
      * @covers ::validate
      * @covers ::isValid
      * @covers ::validateHcaptcha
-     * @covers ::injectRequestFactory
-     * @covers ::injectConfigurationService
+     * @covers ::getConfigurationService
+     * @covers ::getRequestFactory
      */
     public function validateReturnsErrorIfVerificationRequestReturnsError(): void
     {
