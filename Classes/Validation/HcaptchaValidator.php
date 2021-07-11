@@ -6,6 +6,7 @@ namespace Waldhacker\Hcaptcha\Validation;
 
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Http\RequestFactory;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\HttpUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
@@ -14,24 +15,14 @@ use Waldhacker\Hcaptcha\Service\ConfigurationService;
 class HcaptchaValidator extends AbstractValidator
 {
     /**
-     * @var ConfigurationService
+     * @var ConfigurationService|null
      */
     private $configurationService;
 
     /**
-     * @var RequestFactory
+     * @var RequestFactory|null
      */
     private $requestFactory;
-
-    public function injectConfigurationService(ConfigurationService $configurationService): void
-    {
-        $this->configurationService = $configurationService;
-    }
-
-    public function injectRequestFactory(RequestFactory $requestFactory): void
-    {
-        $this->requestFactory = $requestFactory;
-    }
 
     /**
      * Validate the captcha value from the request and add an error if not valid
@@ -71,10 +62,10 @@ class HcaptchaValidator extends AbstractValidator
 
         $url = HttpUtility::buildUrl(
             [
-                'host' => $this->configurationService->getVerificationServer(),
+                'host' => $this->getConfigurationService()->getVerificationServer(),
                 'query' => \http_build_query(
                     [
-                        'secret' => $this->configurationService->getPrivateKey(),
+                        'secret' => $this->getConfigurationService()->getPrivateKey(),
                         'response' => $hcaptchaFormFieldValue,
                         'remoteip' => $request->getAttribute('normalizedParams')->getRemoteAddress(),
                     ]
@@ -82,7 +73,7 @@ class HcaptchaValidator extends AbstractValidator
             ]
         );
 
-        $response = $this->requestFactory->request($url, 'POST');
+        $response = $this->getRequestFactory()->request($url, 'POST');
 
         $body = (string)$response->getBody();
         $responseArray = json_decode($body, true);
@@ -96,5 +87,21 @@ class HcaptchaValidator extends AbstractValidator
                 $extensionName,
                 $arguments
             ) ?? 'Validating the captcha failed.';
+    }
+
+    private function getConfigurationService(): ConfigurationService
+    {
+        if (!($this->configurationService instanceof ConfigurationService)) {
+            $this->configurationService = GeneralUtility::makeInstance(ConfigurationService::class);
+        }
+        return $this->configurationService;
+    }
+
+    private function getRequestFactory(): RequestFactory
+    {
+        if (!($this->requestFactory instanceof RequestFactory)) {
+            $this->requestFactory = GeneralUtility::makeInstance(RequestFactory::class);
+        }
+        return $this->requestFactory;
     }
 }
