@@ -12,6 +12,7 @@ use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Http\NormalizedParams;
 use TYPO3\CMS\Core\Http\RequestFactory;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use Waldhacker\Hcaptcha\Service\ConfigurationService;
 use Waldhacker\Hcaptcha\Validation\HcaptchaValidator;
 
@@ -33,6 +34,12 @@ class HcaptchaValidatorTest extends TestCase
         parent::setUp();
         $this->typo3request = $this->prophesize(ServerRequestInterface::class);
         $GLOBALS['TYPO3_REQUEST'] = $this->typo3request->reveal();
+    }
+
+    protected function tearDown(): void
+    {
+        GeneralUtility::purgeInstances();
+        parent::tearDown();
     }
 
     /**
@@ -58,8 +65,8 @@ class HcaptchaValidatorTest extends TestCase
      * @covers ::validate
      * @covers ::isValid
      * @covers ::validateHcaptcha
-     * @covers ::injectRequestFactory
-     * @covers ::injectConfigurationService
+     * @covers ::getConfigurationService
+     * @covers ::getRequestFactory
      */
     public function validateReturnsErrorIfVerificationRequestReturnsError(): void
     {
@@ -78,12 +85,12 @@ class HcaptchaValidatorTest extends TestCase
         $configurationService = $this->prophesize(ConfigurationService::class);
         $configurationService->getVerificationServer()->willReturn('https://example.com/siteverify');
         $configurationService->getPrivateKey()->willReturn('my_superb_key');
-        $hcaptchaValidator->injectConfigurationService($configurationService->reveal());
+        GeneralUtility::addInstance(ConfigurationService::class, $configurationService->reveal());
 
         $requestFactory = $this->prophesize(RequestFactory::class);
         $responseBody = json_encode(['success' => false, 'error-codes' => ['invalid-input-secret']]);
         $requestFactory->request(Argument::cetera())->willReturn(new Response(200, [], $responseBody));
-        $hcaptchaValidator->injectRequestFactory($requestFactory->reveal());
+        GeneralUtility::addInstance(RequestFactory::class, $requestFactory->reveal());
 
         $result = $hcaptchaValidator->validate(1);
 
