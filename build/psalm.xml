@@ -13,6 +13,7 @@
         <directory name="Classes" />
         <ignoreFiles>
             <directory name=".build/vendor" />
+            <directory name=".build/web/typo3/sysext/core/Classes/Utility" />
         </ignoreFiles>
     </projectFiles>
 </psalm>

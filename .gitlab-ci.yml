@@ -62,7 +62,6 @@ psalm:
   needs:
     - build-dev
   script:
-    - php -v
     - composer run ci:psalm
 
 coverage:
