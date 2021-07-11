@@ -41,7 +41,7 @@ hCaptcha - privacy friendly, GDPR-compliant captcha for TYPO3
 
 **Community Documentation**
 
-This documentation is community documentation for the TYPO3 extension {extension.name}
+This documentation is community documentation for the TYPO3 extension hCaptcha.
 
 It is maintained as part of this third party extension.
 
