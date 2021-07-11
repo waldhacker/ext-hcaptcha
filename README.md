@@ -60,4 +60,5 @@ For more info see: https://docs.hcaptcha.com/faq
 * Issues: https://github.com/waldhacker/ext-hcaptcha
 * Slack: #typo3-cms
 
-Follow me on [Twitter](twitter.com/sasunegomo) or read [my blog entry about hCaptcha at susi.dev](https://susi.dev/hcaptcha).
+Visit our [website](https://waldhacker.dev)
+ or read [Susi's blog entry about hCaptcha at susi.dev](https://susi.dev/hcaptcha).
