@@ -45,10 +45,5 @@ jobs:
       - name: Install tailor
         run: composer global require typo3/tailor --prefer-dist --no-progress --no-suggest
 
-      - name: Build Extension
-        run: |
-          chmod +x ./build/build-extension.sh
-          ./build/build-extension.sh
-
       - name: Publish to TER
         run: php ~/.composer/vendor/bin/tailor ter:publish --comment "${{ steps.get-comment.outputs.comment }}" ${{ steps.get-version.outputs.version }}
