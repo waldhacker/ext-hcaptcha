@@ -2,9 +2,9 @@
 
 .. _start:
 
-=============================================================
-hCaptcha - privacy friendly, GDPR-compliant captcha for TYPO3
-=============================================================
+=======================================================================================
+TYPO3 Extension to add hCaptcha to EXT:form - The privacy friendly captcha alternative.
+=======================================================================================
 
 :Version:
    |release|
@@ -13,7 +13,10 @@ hCaptcha - privacy friendly, GDPR-compliant captcha for TYPO3
    en
 
 :Authors:
-   Waldhacker | Ralf Zimmermann | Susanne Moog |
+   waldhacker UG (haftungsbeschränkt)
+
+:Email:
+   hello@waldhacker.dev
 
 :Website:
    https://waldhacker.dev
@@ -29,6 +32,12 @@ hCaptcha - privacy friendly, GDPR-compliant captcha for TYPO3
 
    hCaptcha - the privacy friendly Google reCaptcha alternative
 
+If you find an error or something is missing, please:
+`Report a Problem <https://github.com/waldhacker/ext-hcaptcha/issues>`__
+
+You are welcome to help improve this guide.
+Just click on "Edit me on GitHub" on the top right to submit your change request.
+
 .. toctree::
    :maxdepth: 3
 
@@ -38,12 +47,3 @@ hCaptcha - privacy friendly, GDPR-compliant captcha for TYPO3
    Editor/Index
    Changelog
    Sitemap
-
-**Community Documentation**
-
-This documentation is community documentation for the TYPO3 extension hCaptcha.
-
-It is maintained as part of this third party extension.
-
-If you find an error or something is missing, please:
-`Report a Problem <https://github.com/waldhacker/ext-hcaptcha/issues>`__
