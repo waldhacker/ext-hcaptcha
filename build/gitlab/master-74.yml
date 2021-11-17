@@ -1,4 +1,0 @@
-include:
-  - local: build/gitlab/php-base.yml
-
-image: $CI_REGISTRY/waldhacker/mainframe/docker/base/php/7.4:cli

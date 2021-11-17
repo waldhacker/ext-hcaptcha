@@ -1,52 +1,47 @@
 {
     "name": "waldhacker/hcaptcha",
     "type": "typo3-cms-extension",
-    "description": "TYPO3 Extension to Add hCaptcha to EXT:form - The privacy friendly captcha alternative.",
+    "description": "TYPO3 Extension to add hCaptcha to EXT:form - The privacy friendly captcha alternative.",
     "license": ["GPL-2.0-or-later"],
-    "homepage": "https://waldhacker.dev/extensions/hcaptcha",
+    "homepage": "https://github.com/waldhacker/ext-hcaptcha",
     "support": {
         "issues": "https://github.com/waldhacker/ext-hcaptcha/issues"
     },
     "authors": [
         {
-            "name": "Susanne Moog",
-            "email": "look+typo3@susi.dev",
-            "homepage": "https://susi.dev",
-            "role": "Developer"
-        },
-        {
-            "name": "Ralf Zimmermann",
+            "name": "waldhacker",
             "email": "hello@waldhacker.dev",
-            "homepage": "https://www.waldhacker.dev/",
+            "homepage": "https://waldhacker.dev",
             "role": "Developer"
         }
     ],
     "prefer-stable": true,
     "minimum-stability": "dev",
     "require": {
+        "ext-json": "*",
         "php": "^7.2 | ^8.0",
         "typo3/cms-core": "^10.4 | ^11.0@dev | dev-master",
-        "typo3/cms-form": "^10.4 | ^11.0@dev | dev-master",
+        "typo3/cms-extbase": "^10.4 | ^11.0@dev | dev-master",
         "typo3/cms-fluid": "^10.4 | ^11.0@dev | dev-master",
-        "ext-json": "*"
+        "typo3/cms-form": "^10.4 | ^11.0@dev | dev-master"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^2.16",
+        "helmich/typo3-typoscript-lint": "^2.3",
+        "overtrue/phplint": "^2.0",
+        "phpstan/extension-installer": "^1.0",
+        "phpstan/phpstan": "^0.12.50",
+        "phpunit/phpunit": "^9.4",
+        "phpspec/prophecy-phpunit": "^2.0",
+        "roave/security-advisories": "dev-latest",
+        "saschaegerer/phpstan-typo3": "@dev",
+        "symfony/console": "^5.1",
+        "symfony/yaml": "^5.1",
+        "typo3/coding-standards": "^0.3.0",
+        "vimeo/psalm": "^3.0 | ^4.0"
     },
     "suggest": {
         "vlucas/phpdotenv": "^2.4"
-    },
-    "require-dev": {
-        "roave/security-advisories": "dev-latest",
-        "overtrue/phplint": "^2.0",
-        "phpstan/phpstan": "^0.12.50",
-        "phpstan/extension-installer": "^1.0",
-        "friendsofphp/php-cs-fixer": "^2.16",
-        "typo3/coding-standards": "^0.3.0",
-        "symfony/console": "^5.1",
-        "symfony/yaml": "^5.1",
-        "helmich/typo3-typoscript-lint": "^2.3",
-        "saschaegerer/phpstan-typo3": "@dev",
-        "vimeo/psalm": "^3.0 | ^4.0",
-        "phpunit/phpunit": "^9.4",
-        "phpspec/prophecy-phpunit": "^2.0"
     },
     "autoload": {
         "psr-4": {
@@ -55,8 +50,9 @@
         }
     },
     "config": {
-        "vendor-dir": ".build/vendor",
-        "bin-dir": ".build/bin"
+        "bin-dir": ".build/bin",
+        "sort-packages": true,
+        "vendor-dir": ".build/vendor"
     },
     "scripts": {
         "post-autoload-dump": [
@@ -75,7 +71,7 @@
             "phpstan analyze --configuration build/phpstan.neon"
         ],
         "ci:psalm": [
-            "psalm --config=build/psalm.xml"
+            "psalm --config=build/psalm.xml --php-version=$(php -r 'echo phpversion();')"
         ],
         "ci:cgl:check": [
             "php-cs-fixer fix --config build/phpcs.dist -v --dry-run"
@@ -98,5 +94,4 @@
             "web-dir": ".build/web"
         }
     }
-
 }
