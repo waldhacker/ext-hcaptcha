@@ -71,7 +71,7 @@
             "phpstan analyze --configuration build/phpstan.neon"
         ],
         "ci:psalm": [
-            "psalm --config=build/psalm.xml"
+            "psalm --config=build/psalm.xml --php-version=$(php -r 'echo phpversion();')"
         ],
         "ci:cgl:check": [
             "php-cs-fixer fix --config build/phpcs.dist -v --dry-run"

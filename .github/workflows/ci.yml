@@ -38,10 +38,7 @@ jobs:
           composer run ci:lint:typoscript
 
       - name: Psalm
-        run: |
-          php -v
-          .build/bin/psalm --config=build/psalm.xml --clear-cache
-          composer run ci:psalm
+        run: composer run ci:psalm
 
       - name: PHPStan
         run: composer run ci:stan
