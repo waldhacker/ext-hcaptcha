@@ -43,5 +43,8 @@ jobs:
       - name: PHPStan
         run: composer run ci:stan
 
-      - name: Tests
+      - name: Unit tests
         run: composer run ci:tests:unit:cover
+
+      - name: Functional tests
+        run: composer run ci:tests:functional

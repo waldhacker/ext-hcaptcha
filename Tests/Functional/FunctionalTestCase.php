@@ -1,0 +1,163 @@
+<?php
+
+declare(strict_types=1);
+
+/*
+ * This file is part of the hcaptcha extension for TYPO3
+ * - (c) 2021 waldhacker UG (haftungsbeschränkt)
+ *
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ *
+ * The TYPO3 project - inspiring people to share!
+ */
+
+namespace Waldhacker\Hcaptcha\Tests\Functional;
+
+use Symfony\Component\Mailer\SentMessage;
+use TYPO3\CMS\Core\Core\Bootstrap;
+use TYPO3\TestingFramework\Core\Functional\Framework\DataHandling\Scenario\DataHandlerFactory;
+use TYPO3\TestingFramework\Core\Functional\Framework\DataHandling\Scenario\DataHandlerWriter;
+use TYPO3\TestingFramework\Core\Functional\Framework\Frontend\InternalRequestContext;
+use Waldhacker\Hcaptcha\Tests\Functional\SiteHandling\SiteBasedTestTrait;
+use ZBateson\MailMimeParser\Message;
+
+abstract class FunctionalTestCase extends \TYPO3\TestingFramework\Core\Functional\FunctionalTestCase
+{
+    use SiteBasedTestTrait;
+
+    public const MAIL_SPOOL_FOLDER = 'typo3temp/var/transient/spool/';
+
+    protected const ENCRYPTION_KEY = '4408d27a916d51e624b69af3554f516dbab61037a9f7b9fd6f81b4d3bedeccb6';
+
+    protected const TYPO3_CONF_VARS = [
+        'SYS' => [
+            'encryptionKey' => self::ENCRYPTION_KEY,
+        ],
+    ];
+
+    protected const LANGUAGE_PRESETS = [
+        'DE' => ['id' => 0, 'title' => 'Deutsch', 'locale' => 'de_DE.UTF8', 'iso' => 'de', 'hrefLang' => 'de-DE', 'direction' => ''],
+    ];
+
+    protected const ROOT_PAGE_BASE_URI = 'http://localhost';
+
+    protected const VALID_HCAPTCHA_RESPONSE = '10000000-aaaa-bbbb-cccc-000000000001';
+
+    protected InternalRequestContext $internalRequestContext;
+
+    protected $pathsToLinkInTestInstance = [
+        'typo3conf/ext/hcaptcha/Tests/Functional/Fixtures/Frontend/AdditionalConfiguration.php' => 'typo3conf/AdditionalConfiguration.php',
+    ];
+
+    protected $coreExtensionsToLoad = [
+        'core',
+        'backend',
+        'frontend',
+        'extbase',
+        'install',
+        'recordlist',
+        'fluid',
+        'fluid_styled_content',
+        'form',
+    ];
+
+    protected $testExtensionsToLoad = ['typo3conf/ext/hcaptcha'];
+
+    protected $rootPageUid = 1;
+
+    protected $databaseScenarioFile = __DIR__ . '/Fixtures/Frontend/StandardPagesScenario.yaml';
+
+    public static function setUpBeforeClass(): void
+    {
+        parent::setUpBeforeClass();
+        static::initializeDatabaseSnapshot();
+    }
+
+    public static function tearDownAfterClass(): void
+    {
+        static::destroyDatabaseSnapshot();
+        parent::tearDownAfterClass();
+    }
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $GLOBALS['TYPO3_CONF_VARS']['SYS']['encryptionKey'] = self::ENCRYPTION_KEY;
+
+        $this->writeSiteConfiguration(
+            'acme-com',
+            $this->buildSiteConfiguration($this->rootPageUid, self::ROOT_PAGE_BASE_URI . '/'),
+            [
+                $this->buildDefaultLanguageConfiguration('DE', '/')
+            ],
+            [
+                $this->buildErrorHandlingConfiguration('Fluid', [404])
+            ]
+        );
+
+        $this->internalRequestContext = (new InternalRequestContext())
+            ->withGlobalSettings(['TYPO3_CONF_VARS' => static::TYPO3_CONF_VARS]);
+
+        $this->withDatabaseSnapshot(function () {
+            $this->setUpDatabase();
+        });
+    }
+
+    protected function tearDown(): void
+    {
+        unset($GLOBALS['TYPO3_CONF_VARS']);
+        unset($this->internalRequestContext);
+
+        $this->purgeMailSpool();
+        parent::tearDown();
+    }
+
+    protected function setUpDatabase(): void
+    {
+        $backendUser = $this->setUpBackendUserFromFixture(1);
+        Bootstrap::initializeLanguageObject();
+
+        $factory = DataHandlerFactory::fromYamlFile($this->databaseScenarioFile);
+        $writer = DataHandlerWriter::withBackendUser($backendUser);
+        $writer->invokeFactory($factory);
+        static::failIfArrayIsNotEmpty(
+            $writer->getErrors()
+        );
+    }
+
+    protected function getMailSpoolMessages(): array
+    {
+        $messages = [];
+        foreach (array_filter(glob($this->instancePath . '/' . self::MAIL_SPOOL_FOLDER . '*'), 'is_file') as $path) {
+            $serializedMessage = file_get_contents($path);
+            $message = unserialize($serializedMessage);
+            if (!($message instanceof SentMessage)) {
+                continue;
+            }
+
+            $message = Message::from($message->toString(), false);
+            $messages[] = [
+                'plaintext' => $message->getTextContent(),
+                //'html' => $message->getHtmlContent(),
+                'subject' => $message->getHeaderValue('Subject'),
+                'date' => new \DateTime($message->getHeaderValue('Date')),
+                'to' => $message->getHeaderValue('To'),
+            ];
+        }
+
+        return $messages;
+    }
+
+    protected function purgeMailSpool(): void
+    {
+        foreach (glob($this->instancePath . '/' . self::MAIL_SPOOL_FOLDER . '*') as $path) {
+            unlink($path);
+        }
+    }
+}
