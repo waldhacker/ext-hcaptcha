@@ -8,6 +8,7 @@ plugin.tx_form {
 
 plugin.tx_hcaptcha {
   settings {
+    # @see https://docs.hcaptcha.com/#integration-testing-test-keys
     publicKey = 10000000-ffff-ffff-ffff-000000000001
     privateKey = 0x0000000000000000000000000000000000000000
   }

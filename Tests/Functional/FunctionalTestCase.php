@@ -46,6 +46,9 @@ abstract class FunctionalTestCase extends \TYPO3\TestingFramework\Core\Functiona
 
     protected const ROOT_PAGE_BASE_URI = 'http://localhost';
 
+    /**
+     * @see https://docs.hcaptcha.com/#integration-testing-test-keys
+     */
     protected const VALID_HCAPTCHA_RESPONSE = '10000000-aaaa-bbbb-cccc-000000000001';
 
     protected InternalRequestContext $internalRequestContext;
