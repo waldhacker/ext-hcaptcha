@@ -64,53 +64,89 @@ class HcaptchaValidatorTest extends TestCase
      */
     public function validateReturnsErrorIfPostResponseFieldIsEmpty(): void
     {
-        $hcaptchaValidator = $this
-            ->getMockBuilder(HcaptchaValidator::class)
+        $subject = $this->getMockBuilder(HcaptchaValidator::class)
             ->onlyMethods(['translateErrorMessage'])
             ->getMock();
-        $result = $hcaptchaValidator->validate(1);
+
+        $result = $subject->validate(1);
         $errors = $result->getErrors();
+
         self::assertCount(1, $errors);
         self::assertSame(1566209403, $errors[0]->getCode());
     }
 
+    public function validateReturnsErrorIfVerificationRequestReturnsErrorDataProvider(): \Generator
+    {
+        yield 'Unsuccessful response with error codes' => [
+            'responseData' => [
+                'success' => false,
+                'error-codes' => ['invalid-input-secret'],
+            ],
+            'expectedErrorCode' => 1566209403,
+        ];
+
+        yield 'Unsuccessful response with empty error codes' => [
+            'responseData' => [
+                'success' => false,
+                'error-codes' => [],
+            ],
+            'expectedErrorCode' => 1637268462,
+        ];
+
+        yield 'Unsuccessful response with missing error codes' => [
+            'responseData' => [
+                'success' => false,
+            ],
+            'expectedErrorCode' => 1637268462,
+        ];
+
+        yield 'Empty response' => [
+            'responseData' => [],
+            'expectedErrorCode' => 1637268462,
+        ];
+    }
+
     /**
      * @test
+     * @dataProvider validateReturnsErrorIfVerificationRequestReturnsErrorDataProvider
      * @covers ::validate
      * @covers ::isValid
      * @covers ::validateHcaptcha
      * @covers ::getConfigurationService
      * @covers ::getRequestFactory
      */
-    public function validateReturnsErrorIfVerificationRequestReturnsError(): void
-    {
-        $hcaptchaValidator = $this
-            ->getMockBuilder(HcaptchaValidator::class)
+    public function validateReturnsErrorIfVerificationRequestReturnsError(
+        array $responseData,
+        int $expectedErrorCode
+    ): void {
+        $subject = $this->getMockBuilder(HcaptchaValidator::class)
             ->onlyMethods(['translateErrorMessage'])
             ->getMock();
 
+        $requestFactory = $this->prophesize(RequestFactory::class);
+        GeneralUtility::addInstance(RequestFactory::class, $requestFactory->reveal());
         $normalizedParams = $this->prophesize(NormalizedParams::class);
-        $normalizedParams->getRemoteAddress()->willReturn('127.0.0.1');
-
-        $this->typo3request->getParsedBody()
-            ->willReturn(['h-captcha-response' => 'verification-key-response']);
+        $configurationService = $this->prophesize(ConfigurationService::class);
+        GeneralUtility::addInstance(ConfigurationService::class, $configurationService->reveal());
         $this->typo3request->getAttribute('normalizedParams')->willReturn($normalizedParams->reveal());
 
-        $configurationService = $this->prophesize(ConfigurationService::class);
+        $normalizedParams->getRemoteAddress()->willReturn('127.0.0.1');
+        $this->typo3request->getParsedBody()->willReturn([
+            'h-captcha-response' => 'verification-key-response'
+        ]);
+
         $configurationService->getVerificationServer()->willReturn('https://example.com/siteverify');
         $configurationService->getPrivateKey()->willReturn('my_superb_key');
-        GeneralUtility::addInstance(ConfigurationService::class, $configurationService->reveal());
 
-        $requestFactory = $this->prophesize(RequestFactory::class);
-        $responseBody = json_encode(['success' => false, 'error-codes' => ['invalid-input-secret']]);
-        $requestFactory->request(Argument::cetera())->willReturn(new Response(200, [], $responseBody));
-        GeneralUtility::addInstance(RequestFactory::class, $requestFactory->reveal());
+        $requestFactory->request(Argument::cetera())->willReturn(
+            new Response(200, [], json_encode($responseData))
+        );
 
-        $result = $hcaptchaValidator->validate(1);
+        $result = $subject->validate(1);
+        $errors = $result->getErrors();
 
         $requestFactory->request('https://example.com/siteverify?secret=my_superb_key&response=verification-key-response&remoteip=127.0.0.1', 'POST')->shouldHaveBeenCalled();
-        $errors = $result->getErrors();
         self::assertCount(1, $errors);
-        self::assertSame(1566209403, $errors[0]->getCode());
+        self::assertSame($expectedErrorCode, $errors[0]->getCode());
     }
 }

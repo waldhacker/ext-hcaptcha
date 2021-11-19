@@ -47,15 +47,25 @@ class HcaptchaValidator extends AbstractValidator
     {
         $response = $this->validateHcaptcha();
 
-        if (empty($response) || $response['success'] === false) {
-            foreach ($response['error-codes'] as $errorCode) {
+        if (empty($response) || (bool)($response['success'] ?? false) === false) {
+            if (empty($response['error-codes'])) {
                 $this->addError(
                     $this->translateErrorMessage(
-                        'error_hcaptcha_' . $errorCode,
+                        'error_hcaptcha_generic',
                         'hcaptcha'
                     ),
-                    1566209403
+                    1637268462
                 );
+            } else {
+                foreach ($response['error-codes'] as $errorCode) {
+                    $this->addError(
+                        $this->translateErrorMessage(
+                            'error_hcaptcha_' . $errorCode,
+                            'hcaptcha'
+                        ),
+                        1566209403
+                    );
+                }
             }
         }
     }
@@ -70,7 +80,7 @@ class HcaptchaValidator extends AbstractValidator
         /** @var array $parsedBody */
         $parsedBody = $request->getParsedBody();
         $hcaptchaFormFieldValue = $parsedBody['h-captcha-response'] ?? null;
-        if (null === $hcaptchaFormFieldValue) {
+        if ($hcaptchaFormFieldValue === null) {
             return ['success' => false, 'error-codes' => ['invalid-post-form']];
         }
 
@@ -94,13 +104,16 @@ class HcaptchaValidator extends AbstractValidator
         return is_array($responseArray) ? $responseArray : [];
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     protected function translateErrorMessage($translateKey, $extensionName, $arguments = []): string
     {
         return LocalizationUtility::translate(
-                $translateKey,
-                $extensionName,
-                $arguments
-            ) ?? 'Validating the captcha failed.';
+            $translateKey,
+            $extensionName,
+            $arguments
+        ) ?? 'Validating the captcha failed.';
     }
 
     private function getConfigurationService(): ConfigurationService
