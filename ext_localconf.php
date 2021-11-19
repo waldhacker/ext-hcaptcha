@@ -1,7 +1,8 @@
 <?php
+
 defined('TYPO3') or die();
 
-(static function (string $extensionKey): void {
+call_user_func(static function () {
     $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
     $iconRegistry->registerIcon(
         'hcaptcha',
@@ -10,4 +11,4 @@ defined('TYPO3') or die();
             'source' => 'EXT:hcaptcha/Resources/Public/Icons/hcaptcha.svg'
         ]
     );
-})('hcaptcha');
+});

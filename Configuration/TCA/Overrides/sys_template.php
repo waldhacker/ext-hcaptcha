@@ -1,13 +1,11 @@
 <?php
 
-defined('TYPO3_MODE') || die();
+defined('TYPO3') || die();
 
-(
-    static function (string $extensionKey): void {
+call_user_func(static function () {
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
-        $extensionKey,
+        'hcaptcha',
         'Configuration/TypoScript',
         'hCaptcha Configuration'
     );
-}
-)('hcaptcha');
+});

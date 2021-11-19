@@ -1,0 +1,15 @@
+plugin.tx_form {
+    settings {
+        yamlConfigurations {
+            100 = EXT:hcaptcha/Tests/Functional/Fixtures/Frontend/FormSetup.yaml
+        }
+    }
+}
+
+plugin.tx_hcaptcha {
+  settings {
+    # @see https://docs.hcaptcha.com/#integration-testing-test-keys
+    publicKey = 10000000-ffff-ffff-ffff-000000000001
+    privateKey = 0x0000000000000000000000000000000000000000
+  }
+}

@@ -6,13 +6,19 @@
                 <source>Duplicate submission of form. Please check the captcha again.</source>
             </trans-unit>
             <trans-unit id="error_hcaptcha_invalid-input-secret">
-                <source>Invalid input secret</source>
+                <source>Invalid input secret.</source>
             </trans-unit>
             <trans-unit id="error_hcaptcha_invalid-post-form">
                 <source>Missing validation value in POST request.</source>
             </trans-unit>
+            <trans-unit id="error_hcaptcha_invalid-input-response">
+                <source>Invalid input response.</source>
+            </trans-unit>
             <trans-unit id="error_hcaptcha_missing-input-response">
                 <source>Missing input.</source>
+            </trans-unit>
+            <trans-unit id="error_hcaptcha_generic">
+                <source>Validating the captcha failed.</source>
             </trans-unit>
         </body>
     </file>

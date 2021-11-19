@@ -2,6 +2,20 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of the hcaptcha extension for TYPO3
+ * - (c) 2021 waldhacker UG (haftungsbeschränkt)
+ *
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ *
+ * The TYPO3 project - inspiring people to share!
+ */
+
 namespace Waldhacker\Hcaptcha\Validation;
 
 use Psr\Http\Message\ServerRequestInterface;
@@ -33,15 +47,25 @@ class HcaptchaValidator extends AbstractValidator
     {
         $response = $this->validateHcaptcha();
 
-        if (empty($response) || $response['success'] === false) {
-            foreach ($response['error-codes'] as $errorCode) {
+        if (empty($response) || (bool)($response['success'] ?? false) === false) {
+            if (empty($response['error-codes'])) {
                 $this->addError(
                     $this->translateErrorMessage(
-                        'error_hcaptcha_' . $errorCode,
+                        'error_hcaptcha_generic',
                         'hcaptcha'
                     ),
-                    1566209403
+                    1637268462
                 );
+            } else {
+                foreach ($response['error-codes'] as $errorCode) {
+                    $this->addError(
+                        $this->translateErrorMessage(
+                            'error_hcaptcha_' . $errorCode,
+                            'hcaptcha'
+                        ),
+                        1566209403
+                    );
+                }
             }
         }
     }
@@ -56,7 +80,7 @@ class HcaptchaValidator extends AbstractValidator
         /** @var array $parsedBody */
         $parsedBody = $request->getParsedBody();
         $hcaptchaFormFieldValue = $parsedBody['h-captcha-response'] ?? null;
-        if (null === $hcaptchaFormFieldValue) {
+        if ($hcaptchaFormFieldValue === null) {
             return ['success' => false, 'error-codes' => ['invalid-post-form']];
         }
 
@@ -80,13 +104,16 @@ class HcaptchaValidator extends AbstractValidator
         return is_array($responseArray) ? $responseArray : [];
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     protected function translateErrorMessage($translateKey, $extensionName, $arguments = []): string
     {
         return LocalizationUtility::translate(
-                $translateKey,
-                $extensionName,
-                $arguments
-            ) ?? 'Validating the captcha failed.';
+            $translateKey,
+            $extensionName,
+            $arguments
+        ) ?? 'Validating the captcha failed.';
     }
 
     private function getConfigurationService(): ConfigurationService
