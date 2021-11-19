@@ -2,11 +2,51 @@ Changelog
 =========
 
 
+2.0.1 (2021-11-19)
+------------------
+
+Tasks
+~~~~~
+- Change badges. [Ralf Zimmermann]
+- Add functional tests (#7) [Ralf Zimmermann]
+
+  * [TASK] Add functional tests #1
+
+  * [TASK] Remove unused code
+
+  * [TASK] Remove unused code
+
+  * [TASK] Remove unused code
+
+  * [TASK] Add comments
+
+  * [TASK] Add missing test files
+- Debug CI. [Ralf Zimmermann]
+- Debug CI. [Ralf Zimmermann]
+- Code cleanup. [Ralf Zimmermann]
+- Move extension icon #3. [Ralf Zimmermann]
+
+Other
+~~~~~
+- Merge pull request #6 from waldhacker/feature/code-cleanup. [Ralf
+  Zimmermann]
+
+  [TASK] code cleanup
+- Merge pull request #5 from waldhacker/task/move-extension-icon. [Ralf
+  Zimmermann]
+
+  [TASK] Move extension icon #3
+
+
 2.0.0 (2021-07-11)
 ------------------
 
 Tasks
 ~~~~~
+- Remove version constraint. [Susanne Moog]
+- Fix emconf constraint. [Susanne Moog]
+- Documentation Rendering. [Susanne Moog]
+- Release Preparation. [Susanne Moog]
 - !!! Breaking: Namespace changed from Susanne to Waldhacker
 - Upgrade PHP Coding Standard. [Susanne Moog]
 - Allow PHP 8. [Susanne Moog]
