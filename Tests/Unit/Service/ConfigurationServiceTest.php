@@ -16,7 +16,7 @@ declare(strict_types=1);
  * The TYPO3 project - inspiring people to share!
  */
 
-namespace Waldhacker\Hcaptcha\Tests\Unit;
+namespace Waldhacker\Hcaptcha\Tests\Unit\Service;
 
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
