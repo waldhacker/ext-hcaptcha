@@ -1,9 +1,24 @@
 # Changelog
 
 
+## 2.0.3 (2022-01-21)
+
+### Tasks
+
+* Revert ext_emconf version constraints. [waldhacker1]
+
+### Other
+
+* Merge tag '2.0.2' into develop. [waldhacker1]
+
+  2.0.2
+
+
 ## 2.0.2 (2022-01-21)
 
 ### Tasks
+
+* Generate changelog. [waldhacker1]
 
 * Bump TYPO3 version. [Ralf Zimmermann]
 
@@ -12,6 +27,8 @@
 * Do not render hcaptcha if preview mode is enabled #8 (#9) [Ralf Zimmermann]
 
 ### Other
+
+* Merge branch 'release/2.0.2' into main. [waldhacker1]
 
 * Merge tag '2.0.1' into develop. [Ralf Zimmermann]
 
