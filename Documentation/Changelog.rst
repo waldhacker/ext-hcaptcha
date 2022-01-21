@@ -2,11 +2,31 @@ Changelog
 =========
 
 
+2.0.2 (2022-01-21)
+------------------
+
+Tasks
+~~~~~
+- Bump TYPO3 version. [Ralf Zimmermann]
+
+Bugfixes
+~~~~~~~~
+- Do not render hcaptcha if preview mode is enabled #8 (#9) [Ralf
+  Zimmermann]
+
+Other
+~~~~~
+- Merge tag '2.0.1' into develop. [Ralf Zimmermann]
+
+  [TASK] Version 2.0.1
+
+
 2.0.1 (2021-11-19)
 ------------------
 
 Tasks
 ~~~~~
+- Generate changelog. [Ralf Zimmermann]
 - Change badges. [Ralf Zimmermann]
 - Add functional tests (#7) [Ralf Zimmermann]
 
@@ -28,6 +48,7 @@ Tasks
 
 Other
 ~~~~~
+- Merge branch 'release/2.0.1' into main. [Ralf Zimmermann]
 - Merge pull request #6 from waldhacker/feature/code-cleanup. [Ralf
   Zimmermann]
 
@@ -47,7 +68,6 @@ Tasks
 - Fix emconf constraint. [Susanne Moog]
 - Documentation Rendering. [Susanne Moog]
 - Release Preparation. [Susanne Moog]
-- !!! Breaking: Namespace changed from Susanne to Waldhacker
 - Upgrade PHP Coding Standard. [Susanne Moog]
 - Allow PHP 8. [Susanne Moog]
 - Add CI Workflows. [Susanne Moog]
