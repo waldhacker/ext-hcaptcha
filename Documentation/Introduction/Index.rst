@@ -6,7 +6,7 @@
 Introduction
 ============
 
-The `hCaptcha` extensions adds a captcha to TYPO3 system extension `form` to stop spam/bots reliably.
+The `hCaptcha` extension adds a captcha to TYPO3 system extension `form` to stop spam/bots reliably.
 `hCaptcha` is a free-to-use service for sites of any size - you can even earn a bit of money with
 it. Find more information on their website: https://www.hcaptcha.com/.
 
