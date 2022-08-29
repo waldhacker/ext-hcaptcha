@@ -18,6 +18,8 @@ declare(strict_types=1);
 
 namespace Waldhacker\Hcaptcha\Service;
 
+use TYPO3\CMS\Core\Http\Request;
+use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use Waldhacker\Hcaptcha\Exception\MissingKeyException;
 
@@ -114,6 +116,29 @@ class ConfigurationService
             );
         }
 
+        return $this->appendSiteLanguage($apiScript);
+    }
+
+    public function appendSiteLanguage(string $apiScript): string
+    {
+        if ($paramString = parse_url($apiScript, PHP_URL_QUERY)) {
+            parse_str($paramString, $params);
+            if (isset($params['hl'])) {
+                return $apiScript;
+            }
+        }
+
+        $request = $this->getRequest();
+        /** @var SiteLanguage $siteLanguage */
+        $siteLanguage = $request->getAttribute('language');
+        $params['hl'] = $siteLanguage->getTwoLetterIsoCode();
+        $apiScript .= '?' . http_build_query($params);
+
         return $apiScript;
+    }
+
+    public function getRequest(): Request
+    {
+        return $GLOBALS['TYPO3_REQUEST'];
     }
 }
