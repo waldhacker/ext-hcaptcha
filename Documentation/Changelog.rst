@@ -2,15 +2,38 @@ Changelog
 =========
 
 
+2.0.4 (2022-12-01)
+------------------
+
+Tasks
+~~~~~
+- Add info about hcaptcha wordings to the docs #10. [waldhacker1]
+- V12 compatibility. [waldhacker1]
+- Fix license. [Ralf Zimmermann]
+
+Other
+~~~~~
+- Exclude all files/folders starting with a dot (#13) [Simon
+  Schaufelberger]
+- English wording (#11) [126016]
+
+  [TASK] english wording
+- Merge tag '2.0.3' into develop. [waldhacker1]
+
+  2.0.3
+
+
 2.0.3 (2022-01-21)
 ------------------
 
 Tasks
 ~~~~~
+- Generate changelog. [waldhacker1]
 - Revert ext_emconf version constraints. [waldhacker1]
 
 Other
 ~~~~~
+- Merge branch 'release/2.0.3' into main. [waldhacker1]
 - Merge tag '2.0.2' into develop. [waldhacker1]
 
   2.0.2
