@@ -52,6 +52,8 @@ class ConfigurationServiceTest extends TestCase
      */
     public function getPublicKeyThrowsExceptionIfKeyNotSet(): void
     {
+        putenv('HCAPTCHA_PUBLIC_KEY');
+
         $this->expectException(MissingKeyException::class);
         $subject = new ConfigurationService($this->configurationManager->reveal());
         $subject->getPublicKey();

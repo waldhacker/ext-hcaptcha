@@ -18,29 +18,26 @@
     "prefer-stable": true,
     "minimum-stability": "dev",
     "require": {
+        "php": "^7.2 | ^8.0 | ^8.1",
         "ext-json": "*",
-        "php": "^7.2 | ^8.0",
-        "typo3/cms-core": "^10.4 | ^11.0@dev | ^12.0.x-dev",
-        "typo3/cms-extbase": "^10.4 | ^11.0@dev | ^12.0.x-dev",
-        "typo3/cms-fluid": "^10.4 | ^11.0@dev | ^12.0.x-dev",
-        "typo3/cms-form": "^10.4 | ^11.0@dev | ^12.0.x-dev"
+        "typo3/cms-core": "^11.5",
+        "typo3/cms-extbase": "^10.4 | ^11.0@dev | ^12.0@dev",
+        "typo3/cms-fluid": "^10.4 | ^11.0@dev | ^12.0@dev",
+        "typo3/cms-form": "^10.4 | ^11.0@dev | ^12.0@dev"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^2.16",
-        "helmich/typo3-typoscript-lint": "^2.3",
-        "overtrue/phplint": "^2.0",
+        "friendsofphp/php-cs-fixer": "^2.16 | ^3.13",
+        "helmich/typo3-typoscript-lint": "^2.3 | ^3.0",
+        "overtrue/phplint": "^2.0 | ^5.3",
         "phpspec/prophecy-phpunit": "^2.0",
         "phpstan/extension-installer": "^1.0",
-        "phpstan/phpstan": "^0.12.50",
         "phpunit/phpunit": "^9.4",
         "roave/security-advisories": "dev-latest",
-        "saschaegerer/phpstan-typo3": "@dev",
-        "symfony/console": "^5.1",
-        "symfony/yaml": "^5.1",
-        "typo3/cms-fluid-styled-content": "^10.4 | ^11.0@dev | dev-main",
-        "typo3/coding-standards": "^0.3.0",
-        "typo3/testing-framework": "^6.14",
-        "vimeo/psalm": "^3.0 | ^4.0",
+        "saschaegerer/phpstan-typo3": "^1.8",
+        "typo3/cms-fluid-styled-content": "^10.4 | ^11.0@dev | ^12.0@dev",
+        "typo3/coding-standards": "^0.3 | ^0.5",
+        "typo3/testing-framework": "^6.14 | ^7.x-dev",
+        "vimeo/psalm": "^3.0 | ^4.0 | ^5.0",
         "zbateson/mail-mime-parser": "^2.0"
     },
     "suggest": {
@@ -57,7 +54,6 @@
         "sort-packages": true,
         "vendor-dir": ".build/vendor",
         "allow-plugins": {
-            "composer/package-versions-deprecated": true,
             "typo3/class-alias-loader": true,
             "typo3/cms-composer-installers": true,
             "phpstan/extension-installer": true

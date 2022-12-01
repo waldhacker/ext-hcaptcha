@@ -97,10 +97,10 @@ abstract class FunctionalTestCase extends \TYPO3\TestingFramework\Core\Functiona
             'acme-com',
             $this->buildSiteConfiguration($this->rootPageUid, self::ROOT_PAGE_BASE_URI . '/'),
             [
-                $this->buildDefaultLanguageConfiguration('DE', '/')
+                $this->buildDefaultLanguageConfiguration('DE', '/'),
             ],
             [
-                $this->buildErrorHandlingConfiguration('Fluid', [404])
+                $this->buildErrorHandlingConfiguration('Fluid', [404]),
             ]
         );
 

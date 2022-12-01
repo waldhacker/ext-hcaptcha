@@ -132,7 +132,7 @@ class HcaptchaValidatorTest extends TestCase
 
         $normalizedParams->getRemoteAddress()->willReturn('127.0.0.1');
         $this->typo3request->getParsedBody()->willReturn([
-            'h-captcha-response' => 'verification-key-response'
+            'h-captcha-response' => 'verification-key-response',
         ]);
 
         $configurationService->getVerificationServer()->willReturn('https://example.com/siteverify');
