@@ -123,9 +123,9 @@ class HcaptchaValidationTest extends FunctionalTestCase
                 'message' => 'some message',
             ],
             'formDataNoPrefix' => [
-                'h-captcha-response' => ''
+                'h-captcha-response' => '',
             ],
-            'expectedErrorMessage' => 'Missing input.'
+            'expectedErrorMessage' => 'Missing input.',
         ];
 
         yield 'h-captcha-response parameter is invalid' => [
@@ -136,9 +136,9 @@ class HcaptchaValidationTest extends FunctionalTestCase
                 'message' => 'some message',
             ],
             'formDataNoPrefix' => [
-                'h-captcha-response' => '123456'
+                'h-captcha-response' => '123456',
             ],
-            'expectedErrorMessage' => 'Invalid input response.'
+            'expectedErrorMessage' => 'Invalid input response.',
         ];
     }
 
@@ -311,9 +311,9 @@ class HcaptchaValidationTest extends FunctionalTestCase
                 'message' => 'some message',
             ],
             'formDataNoPrefix' => [
-                'h-captcha-response' => ''
+                'h-captcha-response' => '',
             ],
-            'expectedErrorMessage' => 'Missing input.'
+            'expectedErrorMessage' => 'Missing input.',
         ];
 
         yield 'h-captcha-response parameter is invalid' => [
@@ -324,9 +324,9 @@ class HcaptchaValidationTest extends FunctionalTestCase
                 'message' => 'some message',
             ],
             'formDataNoPrefix' => [
-                'h-captcha-response' => '123456'
+                'h-captcha-response' => '123456',
             ],
-            'expectedErrorMessage' => 'Invalid input response.'
+            'expectedErrorMessage' => 'Invalid input response.',
         ];
     }
 

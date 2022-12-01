@@ -84,6 +84,12 @@ class HcaptchaValidator extends AbstractValidator
             return ['success' => false, 'error-codes' => ['invalid-post-form']];
         }
 
+        $ip = '';
+        $normalizedParams = $request->getAttribute('normalizedParams');
+        if ($normalizedParams) {
+            $ip = $normalizedParams->getRemoteAddress();
+        }
+
         $url = HttpUtility::buildUrl(
             [
                 'host' => $this->getConfigurationService()->getVerificationServer(),
@@ -91,7 +97,7 @@ class HcaptchaValidator extends AbstractValidator
                     [
                         'secret' => $this->getConfigurationService()->getPrivateKey(),
                         'response' => $hcaptchaFormFieldValue,
-                        'remoteip' => $request->getAttribute('normalizedParams')->getRemoteAddress(),
+                        'remoteip' => $ip,
                     ]
                 ),
             ]
