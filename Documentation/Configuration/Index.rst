@@ -23,14 +23,14 @@ No further configuration is necessary, however, it is recommended to create your
 `hCaptcha` account, which allows you to adjust settings like difficulty or the types of
 puzzles to use.
 
-When using your own account, adjust the private and public key *constants*:
+When using your own account, adjust the private key (hcaptcha wording: "Secret key") and public key (hcaptcha wording: "Site Key") *constants*:
 
 .. code-block:: typoscript
 
    plugin.tx_hcaptcha {
      settings {
-       publicKey = <your-public-key>
-       privateKey = <your-private-key>
+       publicKey = <your-hcaptcha-site-key>
+       privateKey = <your-hcaptcha-secret-key>
      }
    }
 
@@ -42,8 +42,8 @@ variables (if you want installation wide configuration).
 
 .. code-block:: bash
 
-   HCAPTCHA_PUBLIC_KEY=<your-public-key>
-   HCAPTCHA_PRIVATE_KEY=<your-private-key>
+   HCAPTCHA_PUBLIC_KEY=<your-hcaptcha-site-key>
+   HCAPTCHA_PRIVATE_KEY=<your-hcaptcha-secret-key>
 
 .. note::
 
