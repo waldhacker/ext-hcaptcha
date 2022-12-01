@@ -49,6 +49,7 @@ jobs:
 
       - name: Lint
         run: |
+          composer run ci:lint:php
           composer run ci:lint:yaml
           composer run ci:lint:typoscript
 
