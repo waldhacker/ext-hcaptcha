@@ -2,17 +2,52 @@ Changelog
 =========
 
 
+2.1.0 (2023-01-25)
+------------------
+
+Tasks
+~~~~~
+- Version 2.1.0. [Ralf Zimmermann]
+- TYPO4 v10 compat. [Ralf Zimmermann]
+- Skip 10.4 tests. [Ralf Zimmermann]
+- Code hardening / add tests. [Ralf Zimmermann]
+- Add current language to api url. [Daniel Huf]
+- Add release to docs settings. [Ralf Zimmermann]
+- Re-add php lint. [Ralf Zimmermann]
+
+Features
+~~~~~~~~
+- Add event to fetch custom error messages. [Dmitry Dulepov]
+
+Other
+~~~~~
+- Merge branch 'dmitryd-feature/translation-event' into develop. [Ralf
+  Zimmermann]
+- Merge branch 'feature/translation-event' of github.com:dmitryd/ext-
+  hcaptcha into dmitryd-feature/translation-event. [Ralf Zimmermann]
+- Merge branch 'visol-forks-feature/append-api-url-language' into
+  develop. [Ralf Zimmermann]
+- Merge branch 'feature/append-api-url-language' of
+  https://github.com/visol-forks/ext-hcaptcha into visol-forks-
+  feature/append-api-url-language. [Ralf Zimmermann]
+- Merge tag '2.0.4' into develop. [waldhacker1]
+
+  2.0.4
+
+
 2.0.4 (2022-12-01)
 ------------------
 
 Tasks
 ~~~~~
+- Generate changelog. [waldhacker1]
 - Add info about hcaptcha wordings to the docs #10. [waldhacker1]
 - V12 compatibility. [waldhacker1]
 - Fix license. [Ralf Zimmermann]
 
 Other
 ~~~~~
+- Merge branch 'release/2.0.4' into main. [waldhacker1]
 - Exclude all files/folders starting with a dot (#13) [Simon
   Schaufelberger]
 - English wording (#11) [126016]
