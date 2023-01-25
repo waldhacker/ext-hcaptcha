@@ -123,11 +123,13 @@ class ConfigurationService
 
     private function appendSiteLanguage(string $apiScript): string
     {
+        // @codeCoverageIgnoreStart
         try {
             $uri = new Uri($apiScript);
         } catch (\Exception $e) {
             return $apiScript;
         }
+        // @codeCoverageIgnoreEnd
 
         parse_str($uri->getQuery(), $apiScriptQueryParts);
 
@@ -137,9 +139,12 @@ class ConfigurationService
 
         $request = $this->getServerRequest();
         $siteLanguage = $request->getAttribute('language');
+
+        // @codeCoverageIgnoreStart
         if (!$siteLanguage instanceof SiteLanguage) {
             return $apiScript;
         }
+        // @codeCoverageIgnoreEnd
 
         $apiScriptQueryParts['hl'] = $siteLanguage->getTwoLetterIsoCode();
         $uri = $uri->withQuery(http_build_query($apiScriptQueryParts));
@@ -150,9 +155,13 @@ class ConfigurationService
     private function getServerRequest(): ServerRequestInterface
     {
         $request = $GLOBALS['TYPO3_REQUEST'] ?? ServerRequestFactory::fromGlobals();
+
+        // @codeCoverageIgnoreStart
         if (!($request instanceof ServerRequestInterface)) {
             throw new \InvalidArgumentException(sprintf('Request must implement "%s"', ServerRequestInterface::class), 1674637738);
         }
+        // @codeCoverageIgnoreEnd
+
         return $request;
     }
 }

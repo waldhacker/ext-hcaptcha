@@ -19,11 +19,13 @@ declare(strict_types=1);
 namespace Waldhacker\Hcaptcha\Validation;
 
 use Psr\Http\Message\ServerRequestInterface;
+use TYPO3\CMS\Core\EventDispatcher\EventDispatcher;
 use TYPO3\CMS\Core\Http\RequestFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\HttpUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
+use Waldhacker\Hcaptcha\Event\TranslateErrorMessageEvent;
 use Waldhacker\Hcaptcha\Service\ConfigurationService;
 
 class HcaptchaValidator extends AbstractValidator
@@ -115,6 +117,14 @@ class HcaptchaValidator extends AbstractValidator
      */
     protected function translateErrorMessage($translateKey, $extensionName, $arguments = []): string
     {
+        $event = new TranslateErrorMessageEvent($translateKey);
+        GeneralUtility::makeInstance(EventDispatcher::class)->dispatch($event);
+
+        $message = $event->getMessage();
+        if (!empty($message)) {
+            return $message;
+        }
+
         return LocalizationUtility::translate(
             $translateKey,
             $extensionName,
