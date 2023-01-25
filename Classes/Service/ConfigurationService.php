@@ -18,6 +18,10 @@ declare(strict_types=1);
 
 namespace Waldhacker\Hcaptcha\Service;
 
+use Psr\Http\Message\ServerRequestInterface;
+use TYPO3\CMS\Core\Http\ServerRequestFactory;
+use TYPO3\CMS\Core\Http\Uri;
+use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use Waldhacker\Hcaptcha\Exception\MissingKeyException;
 
@@ -114,6 +118,41 @@ class ConfigurationService
             );
         }
 
-        return $apiScript;
+        return $this->appendSiteLanguage($apiScript);
+    }
+
+    private function appendSiteLanguage(string $apiScript): string
+    {
+        try {
+            $uri = new Uri($apiScript);
+        } catch (\Exception $e) {
+            return $apiScript;
+        }
+
+        parse_str($uri->getQuery(), $apiScriptQueryParts);
+
+        if (isset($apiScriptQueryParts['hl'])) {
+            return $apiScript;
+        }
+
+        $request = $this->getServerRequest();
+        $siteLanguage = $request->getAttribute('language');
+        if (!$siteLanguage instanceof SiteLanguage) {
+            return $apiScript;
+        }
+
+        $apiScriptQueryParts['hl'] = $siteLanguage->getTwoLetterIsoCode();
+        $uri = $uri->withQuery(http_build_query($apiScriptQueryParts));
+
+        return (string)$uri;
+    }
+
+    private function getServerRequest(): ServerRequestInterface
+    {
+        $request = $GLOBALS['TYPO3_REQUEST'] ?? ServerRequestFactory::fromGlobals();
+        if (!($request instanceof ServerRequestInterface)) {
+            throw new \InvalidArgumentException(sprintf('Request must implement "%s"', ServerRequestInterface::class), 1674637738);
+        }
+        return $request;
     }
 }

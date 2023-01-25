@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.0.1@b1e2e30026936ef8d5bf6a354d1c3959b6231f44">
+<files psalm-version="5.6.0@e784128902dfe01d489c4123d69918a9f3c1eac5">
   <file src="Classes/Service/ConfigurationService.php">
-    <InternalClass occurrences="1">
+    <InternalClass>
       <code>ConfigurationManager::CONFIGURATION_TYPE_SETTINGS</code>
+      <code>ServerRequestFactory::fromGlobals()</code>
+      <code>new Uri($apiScript)</code>
     </InternalClass>
-    <InternalMethod occurrences="1">
+    <InternalMethod>
+      <code>ServerRequestFactory::fromGlobals()</code>
       <code>getConfiguration</code>
+      <code>getQuery</code>
+      <code>new Uri($apiScript)</code>
+      <code>withQuery</code>
     </InternalMethod>
   </file>
 </files>
