@@ -66,12 +66,14 @@ class DataPusher
         return $this;
     }
 
-    public function toRequest(InternalRequest $request): InternalRequest
+    public function toPostRequest(InternalRequest $request): InternalRequest
     {
-        $request->getBody()->write($this->getPostStructure());
+        $postStructure = $this->getPostStructure();
+        $request->getBody()->write(http_build_query($postStructure));
         return $request
                   ->withMethod('POST')
                   ->withHeader('Content-Type', 'application/x-www-form-urlencoded')
+                  ->withParsedBody($postStructure)
                   ->withQueryParameters($this->getQueryStructure());
     }
 
@@ -92,10 +94,11 @@ class DataPusher
         return $queryStructure;
     }
 
-    private function getPostStructure(): string
+    private function getPostStructure(): array
     {
         $dataPrefix = '';
         $postStructure = [];
+
         foreach ($this->formData['elementData'] ?? [] as $elementData) {
             $nameStruct = [];
             parse_str(sprintf('%s=%s', $elementData['name'], $elementData['value'] ?? ''), $nameStruct);
@@ -126,6 +129,6 @@ class DataPusher
             unset($postStructure[$identifier]);
         }
 
-        return http_build_query($postStructure);
+        return $postStructure;
     }
 }

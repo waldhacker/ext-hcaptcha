@@ -53,11 +53,11 @@ abstract class FunctionalTestCase extends \TYPO3\TestingFramework\Core\Functiona
 
     protected InternalRequestContext $internalRequestContext;
 
-    protected $pathsToLinkInTestInstance = [
+    protected array $pathsToLinkInTestInstance = [
         'typo3conf/ext/hcaptcha/Tests/Functional/Fixtures/Frontend/AdditionalConfiguration.php' => 'typo3conf/AdditionalConfiguration.php',
     ];
 
-    protected $coreExtensionsToLoad = [
+    protected array $coreExtensionsToLoad = [
         'core',
         'backend',
         'frontend',
@@ -69,11 +69,11 @@ abstract class FunctionalTestCase extends \TYPO3\TestingFramework\Core\Functiona
         'form',
     ];
 
-    protected $testExtensionsToLoad = ['typo3conf/ext/hcaptcha'];
+    protected array $testExtensionsToLoad = ['typo3conf/ext/hcaptcha'];
 
-    protected $rootPageUid = 1;
+    protected int $rootPageUid = 1;
 
-    protected $databaseScenarioFile = __DIR__ . '/Fixtures/Frontend/StandardPagesScenario.yaml';
+    protected string $databaseScenarioFile = __DIR__ . '/Fixtures/Frontend/StandardPagesScenario.yaml';
 
     public static function setUpBeforeClass(): void
     {
