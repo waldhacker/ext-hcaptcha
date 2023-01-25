@@ -119,7 +119,13 @@ class HcaptchaValidator extends AbstractValidator
     {
         $event = new TranslateErrorMessageEvent($translateKey);
         GeneralUtility::makeInstance(EventDispatcher::class)->dispatch($event);
-        return $event->getMessage() ?: LocalizationUtility::translate(
+
+        $message = $event->getMessage();
+        if (!empty($message)) {
+            return $message;
+        }
+
+        return LocalizationUtility::translate(
             $translateKey,
             $extensionName,
             $arguments

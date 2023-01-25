@@ -202,6 +202,8 @@ class ConfigurationServiceTest extends TestCase
      * @test
      * @covers ::__construct
      * @covers ::getApiScript
+     * @covers ::appendSiteLanguage
+     * @covers ::getServerRequest
      */
     public function getApiScriptReturnsKeyFromSettingsWithLanguage(): void
     {
@@ -226,6 +228,7 @@ class ConfigurationServiceTest extends TestCase
      * @test
      * @covers ::__construct
      * @covers ::getApiScript
+     * @covers ::appendSiteLanguage
      */
     public function getApiScriptReturnsKeyFromSettingsWithoutLanguage(): void
     {
@@ -233,12 +236,6 @@ class ConfigurationServiceTest extends TestCase
         $this->configurationManager
             ->getConfiguration(ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, 'hcaptcha')
             ->willReturn(['apiScript' => $expectedScript]);
-
-        $siteLanguageProphecy = $this->prophesize(SiteLanguage::class);
-        $siteLanguageProphecy->getTwoLetterIsoCode()->willReturn('en');
-        $serverRequestInterfaceProphecy = $this->prophesize(ServerRequestInterface::class);
-        $serverRequestInterfaceProphecy->getAttribute('language')->willReturn($siteLanguageProphecy);
-        $GLOBALS['TYPO3_REQUEST'] = $serverRequestInterfaceProphecy->reveal();
 
         $subject = new ConfigurationService($this->configurationManager->reveal());
         $apiScript = $subject->getApiScript();
@@ -250,6 +247,8 @@ class ConfigurationServiceTest extends TestCase
      * @test
      * @covers ::__construct
      * @covers ::getApiScript
+     * @covers ::appendSiteLanguage
+     * @covers ::getServerRequest
      */
     public function getApiScriptReturnsKeyFromEnv(): void
     {

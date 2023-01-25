@@ -18,11 +18,20 @@ declare(strict_types=1);
 
 namespace Waldhacker\Hcaptcha\Event;
 
+/**
+ * @codeCoverageIgnore
+ */
 final class TranslateErrorMessageEvent
 {
-    protected string $errorCode = '';
+    /**
+     * @var string
+     */
+    private $errorCode = '';
 
-    protected string $message = '';
+    /**
+     * @var string
+     */
+    private $message = '';
 
     public function __construct(string $errorCode)
     {
