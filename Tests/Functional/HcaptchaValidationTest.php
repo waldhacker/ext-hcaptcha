@@ -85,7 +85,7 @@ class HcaptchaValidationTest extends FunctionalTestCase
     ): void {
         $uri = self::ROOT_PAGE_BASE_URI . '/multistep-test-form';
 
-        $response = $this->executeFrontendRequest(new InternalRequest($uri), $this->internalRequestContext, true);
+        $response = $this->executeFrontendSubRequest(new InternalRequest($uri), $this->internalRequestContext, true);
         $pageMarkup = (string)$response->getBody();
 
         $dataPusher = new DataPusher(new DataExtractor($pageMarkup));
@@ -95,9 +95,9 @@ class HcaptchaValidationTest extends FunctionalTestCase
         foreach ($formDataNoPrefix as $identifier => $value) {
             $dataPusher->withNoPrefix($identifier, $value);
         }
-        $formPostRequest = $dataPusher->toRequest(new InternalRequest($uri));
+        $formPostRequest = $dataPusher->toPostRequest(new InternalRequest($uri));
 
-        $response = $this->executeFrontendRequest($formPostRequest, $this->internalRequestContext, true);
+        $response = $this->executeFrontendSubRequest($formPostRequest, $this->internalRequestContext, true);
         $pageMarkup = (string)$response->getBody();
 
         $formData = (new DataExtractor($pageMarkup))->getFormData();
@@ -153,7 +153,7 @@ class HcaptchaValidationTest extends FunctionalTestCase
     ): void {
         $uri = self::ROOT_PAGE_BASE_URI . '/multistep-test-form';
 
-        $response = $this->executeFrontendRequest(new InternalRequest($uri), $this->internalRequestContext, true);
+        $response = $this->executeFrontendSubRequest(new InternalRequest($uri), $this->internalRequestContext, true);
         $pageMarkup = (string)$response->getBody();
 
         $dataPusher = new DataPusher(new DataExtractor($pageMarkup));
@@ -163,9 +163,9 @@ class HcaptchaValidationTest extends FunctionalTestCase
         foreach ($formDataNoPrefix as $identifier => $value) {
             $dataPusher->withNoPrefix($identifier, $value);
         }
-        $formPostRequest = $dataPusher->toRequest(new InternalRequest($uri));
+        $formPostRequest = $dataPusher->toPostRequest(new InternalRequest($uri));
 
-        $response = $this->executeFrontendRequest($formPostRequest, $this->internalRequestContext, true);
+        $response = $this->executeFrontendSubRequest($formPostRequest, $this->internalRequestContext, true);
         $pageMarkup = (string)$response->getBody();
 
         $formData = (new DataExtractor($pageMarkup))->getFormData();
@@ -188,7 +188,7 @@ class HcaptchaValidationTest extends FunctionalTestCase
     {
         $uri = self::ROOT_PAGE_BASE_URI . '/multistep-test-form';
 
-        $response = $this->executeFrontendRequest(new InternalRequest($uri), $this->internalRequestContext, true);
+        $response = $this->executeFrontendSubRequest(new InternalRequest($uri), $this->internalRequestContext, true);
         $pageMarkup = (string)$response->getBody();
 
         $dataPusher = new DataPusher(new DataExtractor($pageMarkup));
@@ -198,9 +198,9 @@ class HcaptchaValidationTest extends FunctionalTestCase
             ->with('email', 'sender@waldhacker.dev')
             ->with('message', 'some message')
             ->withNoPrefix('h-captcha-response', self::VALID_HCAPTCHA_RESPONSE)
-            ->toRequest(new InternalRequest($uri));
+            ->toPostRequest(new InternalRequest($uri));
 
-        $response = $this->executeFrontendRequest($formPostRequest, $this->internalRequestContext, true);
+        $response = $this->executeFrontendSubRequest($formPostRequest, $this->internalRequestContext, true);
         $pageMarkup = (string)$response->getBody();
 
         $formData = (new DataExtractor($pageMarkup))->getFormData();
@@ -273,7 +273,7 @@ class HcaptchaValidationTest extends FunctionalTestCase
     ): void {
         $uri = self::ROOT_PAGE_BASE_URI . '/singlestep-test-form';
 
-        $response = $this->executeFrontendRequest(new InternalRequest($uri), $this->internalRequestContext, true);
+        $response = $this->executeFrontendSubRequest(new InternalRequest($uri), $this->internalRequestContext, true);
         $pageMarkup = (string)$response->getBody();
 
         $dataPusher = new DataPusher(new DataExtractor($pageMarkup));
@@ -283,9 +283,9 @@ class HcaptchaValidationTest extends FunctionalTestCase
         foreach ($formDataNoPrefix as $identifier => $value) {
             $dataPusher->withNoPrefix($identifier, $value);
         }
-        $formPostRequest = $dataPusher->toRequest(new InternalRequest($uri));
+        $formPostRequest = $dataPusher->toPostRequest(new InternalRequest($uri));
 
-        $response = $this->executeFrontendRequest($formPostRequest, $this->internalRequestContext, true);
+        $response = $this->executeFrontendSubRequest($formPostRequest, $this->internalRequestContext, true);
         $pageMarkup = (string)$response->getBody();
 
         $formData = (new DataExtractor($pageMarkup))->getFormData();
@@ -341,7 +341,7 @@ class HcaptchaValidationTest extends FunctionalTestCase
     ): void {
         $uri = self::ROOT_PAGE_BASE_URI . '/singlestep-test-form';
 
-        $response = $this->executeFrontendRequest(new InternalRequest($uri), $this->internalRequestContext, true);
+        $response = $this->executeFrontendSubRequest(new InternalRequest($uri), $this->internalRequestContext, true);
         $pageMarkup = (string)$response->getBody();
 
         $dataPusher = new DataPusher(new DataExtractor($pageMarkup));
@@ -351,9 +351,9 @@ class HcaptchaValidationTest extends FunctionalTestCase
         foreach ($formDataNoPrefix as $identifier => $value) {
             $dataPusher->withNoPrefix($identifier, $value);
         }
-        $formPostRequest = $dataPusher->toRequest(new InternalRequest($uri));
+        $formPostRequest = $dataPusher->toPostRequest(new InternalRequest($uri));
 
-        $response = $this->executeFrontendRequest($formPostRequest, $this->internalRequestContext, true);
+        $response = $this->executeFrontendSubRequest($formPostRequest, $this->internalRequestContext, true);
         $pageMarkup = (string)$response->getBody();
 
         $formData = (new DataExtractor($pageMarkup))->getFormData();
@@ -376,7 +376,7 @@ class HcaptchaValidationTest extends FunctionalTestCase
     {
         $uri = self::ROOT_PAGE_BASE_URI . '/singlestep-test-form';
 
-        $response = $this->executeFrontendRequest(new InternalRequest($uri), $this->internalRequestContext, true);
+        $response = $this->executeFrontendSubRequest(new InternalRequest($uri), $this->internalRequestContext, true);
         $pageMarkup = (string)$response->getBody();
 
         $dataPusher = new DataPusher(new DataExtractor($pageMarkup));
@@ -386,9 +386,9 @@ class HcaptchaValidationTest extends FunctionalTestCase
             ->with('email', 'sender@waldhacker.dev')
             ->with('message', 'some message')
             ->withNoPrefix('h-captcha-response', self::VALID_HCAPTCHA_RESPONSE)
-            ->toRequest(new InternalRequest($uri));
+            ->toPostRequest(new InternalRequest($uri));
 
-        $response = $this->executeFrontendRequest($formPostRequest, $this->internalRequestContext, true);
+        $response = $this->executeFrontendSubRequest($formPostRequest, $this->internalRequestContext, true);
         $pageMarkup = (string)$response->getBody();
 
         $formData = (new DataExtractor($pageMarkup))->getFormData();

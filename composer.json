@@ -20,10 +20,10 @@
     "require": {
         "php": "^7.2 | ^8.0 | ^8.1",
         "ext-json": "*",
-        "typo3/cms-core": "^11.5",
-        "typo3/cms-extbase": "^10.4 | ^11.0@dev | ^12.0@dev",
-        "typo3/cms-fluid": "^10.4 | ^11.0@dev | ^12.0@dev",
-        "typo3/cms-form": "^10.4 | ^11.0@dev | ^12.0@dev"
+        "typo3/cms-core": "^10.4@dev || ^11.5@dev || ^12.1@dev",
+        "typo3/cms-extbase": "^10.4@dev || ^11.5@dev || ^12.1@dev",
+        "typo3/cms-fluid": "^10.4@dev || ^11.5@dev || ^12.1@dev",
+        "typo3/cms-form": "^10.4@dev || ^11.5@dev || ^12.1@dev"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.16 | ^3.13",
@@ -34,9 +34,9 @@
         "phpunit/phpunit": "^9.4",
         "roave/security-advisories": "dev-latest",
         "saschaegerer/phpstan-typo3": "^1.8",
-        "typo3/cms-fluid-styled-content": "^10.4 | ^11.0@dev | ^12.0@dev",
+        "typo3/cms-fluid-styled-content": "^10.4@dev || ^11.5@dev || ^12.1@dev",
         "typo3/coding-standards": "^0.3 | ^0.5",
-        "typo3/testing-framework": "^6.14 | ^7.x-dev",
+        "typo3/testing-framework": "^7.x-dev",
         "vimeo/psalm": "^3.0 | ^4.0 | ^5.0",
         "zbateson/mail-mime-parser": "^2.0"
     },
@@ -75,8 +75,14 @@
         "ci:stan": [
             "phpstan analyze --configuration build/phpstan.neon"
         ],
+        "ci:stan:gen-baseline": [
+            "phpstan analyze --configuration build/phpstan.neon --generate-baseline build/phpstan.baseline.neon"
+        ],
         "ci:psalm": [
             "psalm --config=build/psalm.xml --php-version=$(php -r 'echo phpversion();')"
+        ],
+        "ci:psalm:gen-baseline": [
+            "psalm --config=build/psalm.xml --php-version=$(php -r 'echo phpversion();') --set-baseline=build/psalm-baseline.xml"
         ],
         "ci:cgl:check": [
             "php-cs-fixer fix --config build/phpcs.dist -v --dry-run"

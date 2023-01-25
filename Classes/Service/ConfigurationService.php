@@ -18,7 +18,9 @@ declare(strict_types=1);
 
 namespace Waldhacker\Hcaptcha\Service;
 
-use TYPO3\CMS\Core\Http\Request;
+use Psr\Http\Message\ServerRequestInterface;
+use TYPO3\CMS\Core\Http\ServerRequestFactory;
+use TYPO3\CMS\Core\Http\Uri;
 use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use Waldhacker\Hcaptcha\Exception\MissingKeyException;
@@ -119,26 +121,38 @@ class ConfigurationService
         return $this->appendSiteLanguage($apiScript);
     }
 
-    public function appendSiteLanguage(string $apiScript): string
+    private function appendSiteLanguage(string $apiScript): string
     {
-        if ($paramString = parse_url($apiScript, PHP_URL_QUERY)) {
-            parse_str($paramString, $params);
-            if (isset($params['hl'])) {
-                return $apiScript;
-            }
+        try {
+            $uri = new Uri($apiScript);
+        } catch (\Exception $e) {
+            return $apiScript;
         }
 
-        $request = $this->getRequest();
-        /** @var SiteLanguage $siteLanguage */
-        $siteLanguage = $request->getAttribute('language');
-        $params['hl'] = $siteLanguage->getTwoLetterIsoCode();
-        $apiScript .= '?' . http_build_query($params);
+        parse_str($uri->getQuery(), $apiScriptQueryParts);
 
-        return $apiScript;
+        if (isset($apiScriptQueryParts['hl'])) {
+            return $apiScript;
+        }
+
+        $request = $this->getServerRequest();
+        $siteLanguage = $request->getAttribute('language');
+        if (!$siteLanguage instanceof SiteLanguage) {
+            return $apiScript;
+        }
+
+        $apiScriptQueryParts['hl'] = $siteLanguage->getTwoLetterIsoCode();
+        $uri = $uri->withQuery(http_build_query($apiScriptQueryParts));
+
+        return (string)$uri;
     }
 
-    public function getRequest(): Request
+    private function getServerRequest(): ServerRequestInterface
     {
-        return $GLOBALS['TYPO3_REQUEST'];
+        $request = $GLOBALS['TYPO3_REQUEST'] ?? ServerRequestFactory::fromGlobals();
+        if (!($request instanceof ServerRequestInterface)) {
+            throw new \InvalidArgumentException(sprintf('Request must implement "%s"', ServerRequestInterface::class), 1674637738);
+        }
+        return $request;
     }
 }

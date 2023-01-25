@@ -22,6 +22,8 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
+use Psr\Http\Message\ServerRequestInterface;
+use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use Waldhacker\Hcaptcha\Exception\MissingKeyException;
 use Waldhacker\Hcaptcha\Service\ConfigurationService;
@@ -201,12 +203,42 @@ class ConfigurationServiceTest extends TestCase
      * @covers ::__construct
      * @covers ::getApiScript
      */
-    public function getApiScriptReturnsKeyFromSettings(): void
+    public function getApiScriptReturnsKeyFromSettingsWithLanguage(): void
     {
         $expectedScript = 'https://hcaptcha.com/1/api.js';
         $this->configurationManager
             ->getConfiguration(ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, 'hcaptcha')
             ->willReturn(['apiScript' => $expectedScript]);
+
+        $siteLanguageProphecy = $this->prophesize(SiteLanguage::class);
+        $siteLanguageProphecy->getTwoLetterIsoCode()->willReturn('en');
+        $serverRequestInterfaceProphecy = $this->prophesize(ServerRequestInterface::class);
+        $serverRequestInterfaceProphecy->getAttribute('language')->willReturn($siteLanguageProphecy);
+        $GLOBALS['TYPO3_REQUEST'] = $serverRequestInterfaceProphecy->reveal();
+
+        $subject = new ConfigurationService($this->configurationManager->reveal());
+        $apiScript = $subject->getApiScript();
+
+        self::assertSame($expectedScript . '?hl=en', $apiScript);
+    }
+
+    /**
+     * @test
+     * @covers ::__construct
+     * @covers ::getApiScript
+     */
+    public function getApiScriptReturnsKeyFromSettingsWithoutLanguage(): void
+    {
+        $expectedScript = 'https://hcaptcha.com/1/api.js?hl=de';
+        $this->configurationManager
+            ->getConfiguration(ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, 'hcaptcha')
+            ->willReturn(['apiScript' => $expectedScript]);
+
+        $siteLanguageProphecy = $this->prophesize(SiteLanguage::class);
+        $siteLanguageProphecy->getTwoLetterIsoCode()->willReturn('en');
+        $serverRequestInterfaceProphecy = $this->prophesize(ServerRequestInterface::class);
+        $serverRequestInterfaceProphecy->getAttribute('language')->willReturn($siteLanguageProphecy);
+        $GLOBALS['TYPO3_REQUEST'] = $serverRequestInterfaceProphecy->reveal();
 
         $subject = new ConfigurationService($this->configurationManager->reveal());
         $apiScript = $subject->getApiScript();
@@ -224,10 +256,16 @@ class ConfigurationServiceTest extends TestCase
         $expectedScript = 'https://hcaptcha.com/1/api.js';
         putenv('HCAPTCHA_API_SCRIPT=' . $expectedScript);
 
+        $siteLanguageProphecy = $this->prophesize(SiteLanguage::class);
+        $siteLanguageProphecy->getTwoLetterIsoCode()->willReturn('en');
+        $serverRequestInterfaceProphecy = $this->prophesize(ServerRequestInterface::class);
+        $serverRequestInterfaceProphecy->getAttribute('language')->willReturn($siteLanguageProphecy);
+        $GLOBALS['TYPO3_REQUEST'] = $serverRequestInterfaceProphecy->reveal();
+
         $subject = new ConfigurationService($this->configurationManager->reveal());
         $apiScript = $subject->getApiScript();
 
-        self::assertSame($expectedScript, $apiScript);
+        self::assertSame($expectedScript . '?hl=en', $apiScript);
     }
 
     protected function tearDown(): void
