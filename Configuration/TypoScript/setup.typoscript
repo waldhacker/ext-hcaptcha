@@ -16,11 +16,3 @@ plugin {
     }
   }
 }
-
-module.tx_form {
-  settings {
-    yamlConfigurations {
-      158329071148 = EXT:hcaptcha/Configuration/Form/Yaml/BaseSetup.yaml
-    }
-  }
-}
