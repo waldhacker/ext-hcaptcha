@@ -12,4 +12,7 @@ Installation
 
    composer require waldhacker/hcaptcha
 
-- Activate the extension in the TYPO3 Extension Manager
+- Activate the extension in the TYPO3 Extension Manager (TER Version)
+
+.. note::
+   If you don't see the hcaptcha Element in the form editor, try to clear the system cache in the Maintenance module.
