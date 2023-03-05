@@ -2,11 +2,33 @@ Changelog
 =========
 
 
+2.1.1 (2023-03-05)
+------------------
+
+Tasks
+~~~~~
+- Version 2.1.1. [waldhacker1]
+
+Bugfixes
+~~~~~~~~
+- Autoload backend configuration to support multi-site setups #15.
+  [waldhacker1]
+
+Other
+~~~~~
+- [DOCS] Add note about clearing the cache after install #4.
+  [waldhacker1]
+- Merge tag '2.1.0' into develop. [Ralf Zimmermann]
+
+  2.1.0
+
+
 2.1.0 (2023-01-25)
 ------------------
 
 Tasks
 ~~~~~
+- Chaneglog. [Ralf Zimmermann]
 - Version 2.1.0. [Ralf Zimmermann]
 - TYPO4 v10 compat. [Ralf Zimmermann]
 - Skip 10.4 tests. [Ralf Zimmermann]
@@ -21,6 +43,7 @@ Features
 
 Other
 ~~~~~
+- Merge branch 'release/2.1.0' into main. [Ralf Zimmermann]
 - Merge branch 'dmitryd-feature/translation-event' into develop. [Ralf
   Zimmermann]
 - Merge branch 'feature/translation-event' of github.com:dmitryd/ext-
