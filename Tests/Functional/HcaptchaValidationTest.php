@@ -33,7 +33,13 @@ class HcaptchaValidationTest extends FunctionalTestCase
                 'email' => 'sender@waldhacker.dev',
                 'message' => 'some message',
             ],
-            'formDataNoPrefix' => [
+            'formDataNoPrefix' => [],
+            'removeFormData' => [
+                'hcaptcha-1',
+            ],
+            'removeFormDataNoPrefix' => [
+                'g-recaptcha-response',
+                'h-captcha-response',
             ],
         ];
 
@@ -45,7 +51,11 @@ class HcaptchaValidationTest extends FunctionalTestCase
                 'message' => 'some message',
                 'hcaptcha-1' => '1',
             ],
-            'formDataNoPrefix' => [
+            'formDataNoPrefix' => [],
+            'removeFormData' => [],
+            'removeFormDataNoPrefix' => [
+                'g-recaptcha-response',
+                'h-captcha-response',
             ],
         ];
 
@@ -58,6 +68,12 @@ class HcaptchaValidationTest extends FunctionalTestCase
             ],
             'formDataNoPrefix' => [
                 'g-recaptcha-response' => '123',
+            ],
+            'removeFormData' => [
+                'hcaptcha-1',
+            ],
+            'removeFormDataNoPrefix' => [
+                'h-captcha-response',
             ],
         ];
 
@@ -72,6 +88,10 @@ class HcaptchaValidationTest extends FunctionalTestCase
             'formDataNoPrefix' => [
                 'g-recaptcha-response' => '123',
             ],
+            'removeFormData' => [],
+            'removeFormDataNoPrefix' => [
+                'h-captcha-response',
+            ],
         ];
     }
 
@@ -81,7 +101,9 @@ class HcaptchaValidationTest extends FunctionalTestCase
      */
     public function validationFailsOnMultiStepFormIfHcaptchaParametersAreMissing(
         array $formData,
-        array $formDataNoPrefix
+        array $formDataNoPrefix,
+        array $removeFormData,
+        array $removeFormDataNoPrefix
     ): void {
         $uri = self::ROOT_PAGE_BASE_URI . '/multistep-test-form';
 
@@ -95,6 +117,13 @@ class HcaptchaValidationTest extends FunctionalTestCase
         foreach ($formDataNoPrefix as $identifier => $value) {
             $dataPusher->withNoPrefix($identifier, $value);
         }
+        foreach ($removeFormData as $identifier) {
+            $dataPusher->without($identifier);
+        }
+        foreach ($removeFormDataNoPrefix as $identifier) {
+            $dataPusher->withoutNoPrefix($identifier);
+        }
+
         $formPostRequest = $dataPusher->toPostRequest(new InternalRequest($uri));
 
         $response = $this->executeFrontendSubRequest($formPostRequest, $this->internalRequestContext, true);
@@ -125,6 +154,8 @@ class HcaptchaValidationTest extends FunctionalTestCase
             'formDataNoPrefix' => [
                 'h-captcha-response' => '',
             ],
+            'removeFormData' => [],
+            'removeFormDataNoPrefix' => [],
             'expectedErrorMessage' => 'Missing input.',
         ];
 
@@ -138,6 +169,8 @@ class HcaptchaValidationTest extends FunctionalTestCase
             'formDataNoPrefix' => [
                 'h-captcha-response' => '123456',
             ],
+            'removeFormData' => [],
+            'removeFormDataNoPrefix' => [],
             'expectedErrorMessage' => 'Invalid input response.',
         ];
     }
@@ -149,6 +182,8 @@ class HcaptchaValidationTest extends FunctionalTestCase
     public function validationFailsOnMultiStepFormIfHcaptchaParametersAreInvalid(
         array $formData,
         array $formDataNoPrefix,
+        array $removeFormData,
+        array $removeFormDataNoPrefix,
         string $expectedErrorMessage
     ): void {
         $uri = self::ROOT_PAGE_BASE_URI . '/multistep-test-form';
@@ -163,6 +198,13 @@ class HcaptchaValidationTest extends FunctionalTestCase
         foreach ($formDataNoPrefix as $identifier => $value) {
             $dataPusher->withNoPrefix($identifier, $value);
         }
+        foreach ($removeFormData as $identifier) {
+            $dataPusher->without($identifier);
+        }
+        foreach ($removeFormDataNoPrefix as $identifier) {
+            $dataPusher->withoutNoPrefix($identifier);
+        }
+
         $formPostRequest = $dataPusher->toPostRequest(new InternalRequest($uri));
 
         $response = $this->executeFrontendSubRequest($formPostRequest, $this->internalRequestContext, true);
@@ -221,7 +263,13 @@ class HcaptchaValidationTest extends FunctionalTestCase
                 'email' => 'sender@waldhacker.dev',
                 'message' => 'some message',
             ],
-            'formDataNoPrefix' => [
+            'formDataNoPrefix' => [],
+            'removeFormData' => [
+                'hcaptcha-1',
+            ],
+            'removeFormDataNoPrefix' => [
+                'g-recaptcha-response',
+                'h-captcha-response',
             ],
         ];
 
@@ -233,7 +281,11 @@ class HcaptchaValidationTest extends FunctionalTestCase
                 'message' => 'some message',
                 'hcaptcha-1' => '1',
             ],
-            'formDataNoPrefix' => [
+            'formDataNoPrefix' => [],
+            'removeFormData' => [],
+            'removeFormDataNoPrefix' => [
+                'g-recaptcha-response',
+                'h-captcha-response',
             ],
         ];
 
@@ -246,6 +298,12 @@ class HcaptchaValidationTest extends FunctionalTestCase
             ],
             'formDataNoPrefix' => [
                 'g-recaptcha-response' => '123',
+            ],
+            'removeFormData' => [
+                'hcaptcha-1',
+            ],
+            'removeFormDataNoPrefix' => [
+                'h-captcha-response',
             ],
         ];
 
@@ -260,6 +318,10 @@ class HcaptchaValidationTest extends FunctionalTestCase
             'formDataNoPrefix' => [
                 'g-recaptcha-response' => '123',
             ],
+            'removeFormData' => [],
+            'removeFormDataNoPrefix' => [
+                'h-captcha-response',
+            ],
         ];
     }
 
@@ -269,7 +331,9 @@ class HcaptchaValidationTest extends FunctionalTestCase
      */
     public function validationFailsOnSingleStepFormIfHcaptchaParametersAreMissing(
         array $formData,
-        array $formDataNoPrefix
+        array $formDataNoPrefix,
+        array $removeFormData,
+        array $removeFormDataNoPrefix
     ): void {
         $uri = self::ROOT_PAGE_BASE_URI . '/singlestep-test-form';
 
@@ -283,6 +347,13 @@ class HcaptchaValidationTest extends FunctionalTestCase
         foreach ($formDataNoPrefix as $identifier => $value) {
             $dataPusher->withNoPrefix($identifier, $value);
         }
+        foreach ($removeFormData as $identifier) {
+            $dataPusher->without($identifier);
+        }
+        foreach ($removeFormDataNoPrefix as $identifier) {
+            $dataPusher->withoutNoPrefix($identifier);
+        }
+
         $formPostRequest = $dataPusher->toPostRequest(new InternalRequest($uri));
 
         $response = $this->executeFrontendSubRequest($formPostRequest, $this->internalRequestContext, true);
@@ -313,6 +384,8 @@ class HcaptchaValidationTest extends FunctionalTestCase
             'formDataNoPrefix' => [
                 'h-captcha-response' => '',
             ],
+            'removeFormData' => [],
+            'removeFormDataNoPrefix' => [],
             'expectedErrorMessage' => 'Missing input.',
         ];
 
@@ -326,6 +399,8 @@ class HcaptchaValidationTest extends FunctionalTestCase
             'formDataNoPrefix' => [
                 'h-captcha-response' => '123456',
             ],
+            'removeFormData' => [],
+            'removeFormDataNoPrefix' => [],
             'expectedErrorMessage' => 'Invalid input response.',
         ];
     }
@@ -337,6 +412,8 @@ class HcaptchaValidationTest extends FunctionalTestCase
     public function validationFailsOnSingleStepFormIfHcaptchaParametersAreInvalid(
         array $formData,
         array $formDataNoPrefix,
+        array $removeFormData,
+        array $removeFormDataNoPrefix,
         string $expectedErrorMessage
     ): void {
         $uri = self::ROOT_PAGE_BASE_URI . '/singlestep-test-form';
@@ -351,6 +428,13 @@ class HcaptchaValidationTest extends FunctionalTestCase
         foreach ($formDataNoPrefix as $identifier => $value) {
             $dataPusher->withNoPrefix($identifier, $value);
         }
+        foreach ($removeFormData as $identifier) {
+            $dataPusher->without($identifier);
+        }
+        foreach ($removeFormDataNoPrefix as $identifier) {
+            $dataPusher->withoutNoPrefix($identifier);
+        }
+
         $formPostRequest = $dataPusher->toPostRequest(new InternalRequest($uri));
 
         $response = $this->executeFrontendSubRequest($formPostRequest, $this->internalRequestContext, true);
