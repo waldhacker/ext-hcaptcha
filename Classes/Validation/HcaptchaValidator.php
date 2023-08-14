@@ -24,11 +24,11 @@ use TYPO3\CMS\Core\Http\RequestFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\HttpUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
-use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
+use TYPO3\CMS\Extbase\Validation\Validator\NotEmptyValidator;
 use Waldhacker\Hcaptcha\Event\TranslateErrorMessageEvent;
 use Waldhacker\Hcaptcha\Service\ConfigurationService;
 
-class HcaptchaValidator extends AbstractValidator
+class HcaptchaValidator extends NotEmptyValidator
 {
     /**
      * @var ConfigurationService|null
@@ -45,8 +45,9 @@ class HcaptchaValidator extends AbstractValidator
      *
      * @param mixed $value The value
      */
-    protected function isValid($value): void
+    public function isValid($value): void
     {
+        parent::isValid($value);
         $response = $this->validateHcaptcha();
 
         if (empty($response) || (bool)($response['success'] ?? false) === false) {
