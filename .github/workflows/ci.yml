@@ -6,15 +6,14 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        typo3: [ '^11.5', '^12.1' ]
+        typo3: [ '^11.5', '^12.4' ]
         php: [ '8.0', '8.1' ]
         exclude:
           - typo3: '^11.5'
             php: '8.1'
-          - typo3: '^12.1'
-            php: '7.4'
-          - typo3: '^12.1'
+          - typo3: '^12.4'
             php: '8.0'
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -60,8 +59,8 @@ jobs:
         run: composer run ci:stan
         if: matrix.typo3 == '^11.5'
 
-      #- name: Unit tests
-      #  run: composer run ci:tests:unit:cover
+      - name: Unit tests
+        run: composer run ci:tests:unit:cover
 
       - name: Functional tests
         run: composer run ci:tests:functional
