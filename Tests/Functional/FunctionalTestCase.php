@@ -123,15 +123,12 @@ abstract class FunctionalTestCase extends \TYPO3\TestingFramework\Core\Functiona
 
     protected function setUpDatabase(): void
     {
-        $this->importCSVDataSet(__DIR__ . '/Fixtures/Frontend/be_users.csv');
-        $backendUser = $this->setUpBackendUser(1);
-
+        $backendUser = $this->setUpBackendUserFromFixture(1);
         Bootstrap::initializeLanguageObject();
 
         $factory = DataHandlerFactory::fromYamlFile($this->databaseScenarioFile);
         $writer = DataHandlerWriter::withBackendUser($backendUser);
         $writer->invokeFactory($factory);
-
         static::failIfArrayIsNotEmpty(
             $writer->getErrors()
         );

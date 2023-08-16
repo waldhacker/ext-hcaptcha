@@ -17,10 +17,8 @@ declare(strict_types=1);
 
 namespace Waldhacker\Hcaptcha\Tests\Functional\SiteHandling;
 
-use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Core\Configuration\SiteConfiguration;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\TestingFramework\Core\Functional\Framework\Frontend\Internal\AbstractInstruction;
 use TYPO3\TestingFramework\Core\Functional\Framework\Frontend\Internal\ArrayValueInstruction;
 use TYPO3\TestingFramework\Core\Functional\Framework\Frontend\Internal\TypoScriptInstruction;
@@ -69,19 +67,10 @@ trait SiteBasedTestTrait
         if (!empty($errorHandling)) {
             $configuration['errorHandling'] = $errorHandling;
         }
-
-        if ($this->isV11Branch()) {
-            $siteConfiguration = new SiteConfiguration(
-                $this->instancePath . '/typo3conf/sites/',
-                $this->getContainer()->get('cache.core')
-            );
-        } else {
-            $siteConfiguration = new SiteConfiguration(
-                $this->instancePath . '/typo3conf/sites/',
-                GeneralUtility::makeInstance(EventDispatcherInterface::class),
-                $this->getContainer()->get('cache.core')
-            );
-        }
+        $siteConfiguration = new SiteConfiguration(
+            $this->instancePath . '/typo3conf/sites/',
+            $this->getContainer()->get('cache.core')
+        );
 
         try {
             // ensure no previous site configuration influences the test
@@ -100,19 +89,10 @@ trait SiteBasedTestTrait
         string $identifier,
         array $overrides
     ): void {
-        if ($this->isV11Branch()) {
-            $siteConfiguration = new SiteConfiguration(
-                $this->instancePath . '/typo3conf/sites/',
-                $this->getContainer()->get('cache.core')
-            );
-        } else {
-            $siteConfiguration = new SiteConfiguration(
-                $this->instancePath . '/typo3conf/sites/',
-                GeneralUtility::makeInstance(EventDispatcherInterface::class),
-                $this->getContainer()->get('cache.core')
-            );
-        }
-
+        $siteConfiguration = new SiteConfiguration(
+            $this->instancePath . '/typo3conf/sites/',
+            $this->getContainer()->get('cache.core')
+        );
         $configuration = $siteConfiguration->load($identifier);
         $configuration = array_merge($configuration, $overrides);
         try {
@@ -326,10 +306,5 @@ trait SiteBasedTestTrait
         }
 
         return $current;
-    }
-
-    private function isV11Branch(): bool
-    {
-        return (int)VersionNumberUtility::convertVersionStringToArray(VersionNumberUtility::getCurrentTypo3Version())['version_main'] === 11;
     }
 }

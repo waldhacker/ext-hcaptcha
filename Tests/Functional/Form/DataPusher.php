@@ -19,6 +19,7 @@ declare(strict_types=1);
 namespace Waldhacker\Hcaptcha\Tests\Functional\Form;
 
 use TYPO3\CMS\Core\Utility\ArrayUtility;
+use TYPO3\CMS\Core\Utility\StringUtility;
 use TYPO3\TestingFramework\Core\Functional\Framework\Frontend\InternalRequest;
 
 class DataPusher
@@ -103,7 +104,7 @@ class DataPusher
             parse_str(sprintf('%s=%s', $elementData['name'], $elementData['value'] ?? ''), $nameStruct);
             $postStructure = array_replace_recursive($postStructure, $nameStruct);
 
-            if ($this->strEndsWith($elementData['name'], '[__state]')) {
+            if (StringUtility::endsWith($elementData['name'], '[__state]')) {
                 $prefix = key(ArrayUtility::flatten($nameStruct));
                 $prefixItems = explode('.', $prefix);
                 array_pop($prefixItems);
@@ -129,11 +130,5 @@ class DataPusher
         }
 
         return $postStructure;
-    }
-
-    private function strEndsWith(string $haystack, string $needle): bool
-    {
-        $needleLength = strlen($needle);
-        return $needleLength === 0 || substr_compare($haystack, $needle, - $needleLength) === 0;
     }
 }
