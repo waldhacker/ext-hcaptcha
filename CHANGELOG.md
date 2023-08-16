@@ -1,9 +1,22 @@
 # Changelog
 
 
+## 2.1.2 (2023-08-14)
+
+### Other
+
+* [SECURITY] - Prohibit empty values in validator. [waldhacker1]
+
+* Merge tag '2.1.1' into develop. [waldhacker1]
+
+  2.1.1
+
+
 ## 2.1.1 (2023-03-05)
 
 ### Tasks
+
+* Changelog. [waldhacker1]
 
 * Version 2.1.1. [waldhacker1]
 
@@ -12,6 +25,8 @@
 * Autoload backend configuration to support multi-site setups #15. [waldhacker1]
 
 ### Other
+
+* Merge branch 'release/2.1.1' into main. [waldhacker1]
 
 * [DOCS] Add note about clearing the cache after install #4. [waldhacker1]
 
