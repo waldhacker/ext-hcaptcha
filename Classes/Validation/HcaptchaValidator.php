@@ -30,6 +30,8 @@ use Waldhacker\Hcaptcha\Service\ConfigurationService;
 
 class HcaptchaValidator extends AbstractValidator
 {
+    protected $acceptsEmptyValues = false;
+
     /**
      * @var ConfigurationService|null
      */
