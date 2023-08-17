@@ -1,11 +1,40 @@
 # Changelog
 
 
-## 2.1.2 (2023-08-14)
+## 2.1.3 (2023-08-17)
+
+### Tasks
+
+* TYPO3 12 LTS Compatibility #21 (#23) [Ralf Zimmermann]
+
+  * [TASK] TYPO3 12 LTS Compatibility  #21
+
+  * [TASK] Fix ci
 
 ### Other
 
+* Merge tag '2.1.2' into develop. [waldhacker1]
+
+  2.1.2
+
+
+## 2.1.2 (2023-08-16)
+
+### Tasks
+
+* Version 2.1.2. [waldhacker1]
+
+* Fix ci. [waldhacker1]
+
+* TYPO3 12 LTS Compatibility  #21. [waldhacker1]
+
+### Other
+
+* Merge branch 'release/2.1.2' into main. [waldhacker1]
+
 * [SECURITY] - Prohibit empty values in validator. [waldhacker1]
+
+* [REVERT] TYPO3 12 LTS Compatibility #21. [waldhacker1]
 
 * Merge tag '2.1.1' into develop. [waldhacker1]
 
