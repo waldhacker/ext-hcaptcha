@@ -18,12 +18,12 @@
     "prefer-stable": true,
     "minimum-stability": "dev",
     "require": {
-        "php": "^7.2 | ^8.0 | ^8.1",
+        "php": "^7.2 | ^8.0 | ^8.1 | ^8.2",
         "ext-json": "*",
-        "typo3/cms-core": "^10.4@dev || ^11.5@dev || ^12.1@dev",
-        "typo3/cms-extbase": "^10.4@dev || ^11.5@dev || ^12.1@dev",
-        "typo3/cms-fluid": "^10.4@dev || ^11.5@dev || ^12.1@dev",
-        "typo3/cms-form": "^10.4@dev || ^11.5@dev || ^12.1@dev"
+        "typo3/cms-core": "^10.4@dev || ^11.5@dev || ^12.4@dev",
+        "typo3/cms-extbase": "^10.4@dev || ^11.5@dev || ^12.4@dev",
+        "typo3/cms-fluid": "^10.4@dev || ^11.5@dev || ^12.4@dev",
+        "typo3/cms-form": "^10.4@dev || ^11.5@dev || ^12.4@dev"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.16 | ^3.13",
