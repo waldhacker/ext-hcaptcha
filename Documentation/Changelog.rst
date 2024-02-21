@@ -2,11 +2,26 @@ Changelog
 =========
 
 
+2.2.0 (2024-02-21)
+------------------
+
+Tasks
+~~~~~
+- TYPO3 13 compat. [waldhacker1]
+
+Other
+~~~~~
+- Merge tag '2.1.3' into develop. [waldhacker1]
+
+  2.1.3
+
+
 2.1.3 (2023-08-17)
 ------------------
 
 Tasks
 ~~~~~
+- Version 2.1.3. [waldhacker1]
 - TYPO3 12 LTS Compatibility #21 (#23) [Ralf Zimmermann]
 
   * [TASK] TYPO3 12 LTS Compatibility  #21
@@ -15,6 +30,7 @@ Tasks
 
 Other
 ~~~~~
+- Merge branch 'release/2.1.3' into main. [waldhacker1]
 - Merge tag '2.1.2' into develop. [waldhacker1]
 
   2.1.2
