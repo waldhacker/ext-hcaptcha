@@ -64,7 +64,7 @@ class DataExtractor
     private function extractFormFragment(string $html, string $query): \DOMDocument
     {
         $document = new \DOMDocument();
-        $document->loadHTML($html);
+        $document->loadHTML($html, \LIBXML_NOERROR);
 
         $xpath = new \DomXPath($document);
         $fragment = new \DOMDocument();

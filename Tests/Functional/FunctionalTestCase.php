@@ -20,6 +20,7 @@ namespace Waldhacker\Hcaptcha\Tests\Functional;
 
 use Symfony\Component\Mailer\SentMessage;
 use TYPO3\CMS\Core\Core\Bootstrap;
+use TYPO3\CMS\Core\Localization\LanguageServiceFactory;
 use TYPO3\TestingFramework\Core\Functional\Framework\DataHandling\Scenario\DataHandlerFactory;
 use TYPO3\TestingFramework\Core\Functional\Framework\DataHandling\Scenario\DataHandlerWriter;
 use TYPO3\TestingFramework\Core\Functional\Framework\Frontend\InternalRequestContext;
@@ -75,17 +76,7 @@ abstract class FunctionalTestCase extends \TYPO3\TestingFramework\Core\Functiona
 
     protected string $databaseScenarioFile = __DIR__ . '/Fixtures/Frontend/StandardPagesScenario.yaml';
 
-    public static function setUpBeforeClass(): void
-    {
-        parent::setUpBeforeClass();
-        static::initializeDatabaseSnapshot();
-    }
-
-    public static function tearDownAfterClass(): void
-    {
-        static::destroyDatabaseSnapshot();
-        parent::tearDownAfterClass();
-    }
+    protected array $configurationToUseInTestInstance = self::TYPO3_CONF_VARS;
 
     protected function setUp(): void
     {
@@ -99,13 +90,10 @@ abstract class FunctionalTestCase extends \TYPO3\TestingFramework\Core\Functiona
             [
                 $this->buildDefaultLanguageConfiguration('DE', '/'),
             ],
-            [
-                $this->buildErrorHandlingConfiguration('Fluid', [404]),
-            ]
+            $this->buildErrorHandlingConfiguration('Fluid', [404])
         );
 
-        $this->internalRequestContext = (new InternalRequestContext())
-            ->withGlobalSettings(['TYPO3_CONF_VARS' => static::TYPO3_CONF_VARS]);
+        $this->internalRequestContext = (new InternalRequestContext());
 
         $this->withDatabaseSnapshot(function () {
             $this->setUpDatabase();
@@ -126,7 +114,11 @@ abstract class FunctionalTestCase extends \TYPO3\TestingFramework\Core\Functiona
         $this->importCSVDataSet(__DIR__ . '/Fixtures/Frontend/be_users.csv');
         $backendUser = $this->setUpBackendUser(1);
 
-        Bootstrap::initializeLanguageObject();
+        if (method_exists(Bootstrap::class, 'initializeLanguageObject')) {
+            Bootstrap::initializeLanguageObject();
+        } else {
+            $GLOBALS['LANG'] = $this->get(LanguageServiceFactory::class)->createFromUserPreferences($backendUser);
+        }
 
         $factory = DataHandlerFactory::fromYamlFile($this->databaseScenarioFile);
         $writer = DataHandlerWriter::withBackendUser($backendUser);
