@@ -23,6 +23,7 @@ use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Http\Message\ServerRequestInterface;
+use TYPO3\CMS\Core\Localization\Locale;
 use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use Waldhacker\Hcaptcha\Exception\MissingKeyException;
@@ -213,7 +214,15 @@ class ConfigurationServiceTest extends TestCase
             ->willReturn(['apiScript' => $expectedScript]);
 
         $siteLanguageProphecy = $this->prophesize(SiteLanguage::class);
-        $siteLanguageProphecy->getTwoLetterIsoCode()->willReturn('en');
+
+        if (method_exists(SiteLanguage::class, 'getTwoLetterIsoCode')) {
+            $siteLanguageProphecy->getTwoLetterIsoCode()->willReturn('en');
+        } else {
+            $localeProphecy = $this->prophesize(Locale::class);
+            $siteLanguageProphecy->getLocale()->willReturn($localeProphecy);
+            $localeProphecy->getLanguageCode()->willReturn('en');
+        }
+
         $serverRequestInterfaceProphecy = $this->prophesize(ServerRequestInterface::class);
         $serverRequestInterfaceProphecy->getAttribute('language')->willReturn($siteLanguageProphecy);
         $GLOBALS['TYPO3_REQUEST'] = $serverRequestInterfaceProphecy->reveal();
@@ -256,7 +265,15 @@ class ConfigurationServiceTest extends TestCase
         putenv('HCAPTCHA_API_SCRIPT=' . $expectedScript);
 
         $siteLanguageProphecy = $this->prophesize(SiteLanguage::class);
-        $siteLanguageProphecy->getTwoLetterIsoCode()->willReturn('en');
+
+        if (method_exists(SiteLanguage::class, 'getTwoLetterIsoCode')) {
+            $siteLanguageProphecy->getTwoLetterIsoCode()->willReturn('en');
+        } else {
+            $localeProphecy = $this->prophesize(Locale::class);
+            $siteLanguageProphecy->getLocale()->willReturn($localeProphecy);
+            $localeProphecy->getLanguageCode()->willReturn('en');
+        }
+
         $serverRequestInterfaceProphecy = $this->prophesize(ServerRequestInterface::class);
         $serverRequestInterfaceProphecy->getAttribute('language')->willReturn($siteLanguageProphecy);
         $GLOBALS['TYPO3_REQUEST'] = $serverRequestInterfaceProphecy->reveal();

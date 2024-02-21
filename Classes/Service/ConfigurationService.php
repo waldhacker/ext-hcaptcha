@@ -146,7 +146,12 @@ class ConfigurationService
         }
         // @codeCoverageIgnoreEnd
 
-        $apiScriptQueryParts['hl'] = $siteLanguage->getTwoLetterIsoCode();
+        if (method_exists($siteLanguage, 'getTwoLetterIsoCode')) {
+            $apiScriptQueryParts['hl'] = $siteLanguage->getTwoLetterIsoCode();
+        } else {
+            $apiScriptQueryParts['hl'] = $siteLanguage->getLocale()->getLanguageCode();
+        }
+
         $uri = $uri->withQuery(http_build_query($apiScriptQueryParts));
 
         return (string)$uri;

@@ -75,7 +75,7 @@ class HcaptchaValidatorTest extends TestCase
         self::assertSame(1566209403, $errors[0]->getCode());
     }
 
-    public function validateReturnsErrorIfVerificationRequestReturnsErrorDataProvider(): \Generator
+    public static function validateReturnsErrorIfVerificationRequestReturnsErrorDataProvider(): \Generator
     {
         yield 'Unsuccessful response with error codes' => [
             'responseData' => [

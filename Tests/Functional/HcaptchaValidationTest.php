@@ -24,7 +24,7 @@ use Waldhacker\Hcaptcha\Tests\Functional\Form\DataPusher;
 
 class HcaptchaValidationTest extends FunctionalTestCase
 {
-    public function validationFailsOnMultiStepFormIfHcaptchaParametersAreMissingDataProvider(): \Generator
+    public static function validationFailsOnMultiStepFormIfHcaptchaParametersAreMissingDataProvider(): \Generator
     {
         yield 'missing hcaptcha, h-captcha-response and g-recaptcha-response parameters' => [
             'formData' => [
@@ -142,7 +142,7 @@ class HcaptchaValidationTest extends FunctionalTestCase
         self::assertCount(0, $this->getMailSpoolMessages());
     }
 
-    public function validationFailsOnMultiStepFormIfHcaptchaParametersAreInvalidDataProvider(): \Generator
+    public static function validationFailsOnMultiStepFormIfHcaptchaParametersAreInvalidDataProvider(): \Generator
     {
         yield 'h-captcha-response parameter is empty' => [
             'formData' => [
@@ -254,7 +254,7 @@ class HcaptchaValidationTest extends FunctionalTestCase
         self::assertCount(0, $this->getMailSpoolMessages());
     }
 
-    public function validationFailsOnSingleStepFormIfHcaptchaParametersAreMissingDataProvider(): \Generator
+    public static function validationFailsOnSingleStepFormIfHcaptchaParametersAreMissingDataProvider(): \Generator
     {
         yield 'missing hcaptcha, h-captcha-response and g-recaptcha-response parameters' => [
             'formData' => [
@@ -372,7 +372,7 @@ class HcaptchaValidationTest extends FunctionalTestCase
         self::assertCount(0, $this->getMailSpoolMessages());
     }
 
-    public function validationFailsOnSingleStepFormIfHcaptchaParametersAreInvalidDataProvider(): \Generator
+    public static function validationFailsOnSingleStepFormIfHcaptchaParametersAreInvalidDataProvider(): \Generator
     {
         yield 'h-captcha-response parameter is empty' => [
             'formData' => [
